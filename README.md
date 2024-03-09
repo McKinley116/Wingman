@@ -29,3 +29,17 @@ By developing this software, veterans will have access to a customizable and int
 
 # How will we simulate?
 ROS provides a comprehensive framework for building robotic systems, including simulation capabilities that are well-suited for modeling and testing prosthetic limbs.
+
+# What libraries may be used.
+
+OpenCV Documentation: OpenCV is a widely used computer vision library that provides various algorithms and functions for image processing and gesture recognition. You can find the documentation and tutorials on the official OpenCV website: OpenCV Documentation
+
+TensorFlow Documentation: TensorFlow is a popular machine learning framework that you can use for implementing adaptive control algorithms. The TensorFlow website provides extensive documentation, tutorials, and examples to help you get started: TensorFlow Documentation
+
+Qt Documentation: Qt is a cross-platform GUI toolkit that you can use for building the user interface of your software. The Qt documentation includes guides, tutorials, and examples for developing GUI applications in C++: Qt Documentation
+
+Research Papers and Journals: Look for research papers, journals, and articles related to prosthetic limb control, computer vision, and assistive technologies. Websites like Google Scholar and IEEE Xplore provide access to a vast collection of academic resources.
+
+GitHub Repositories: Explore GitHub repositories related to prosthetics, computer vision, and machine learning for inspiration and reference. You may find open-source projects and libraries that can accelerate your development process.
+
+Online Communities and Forums: Join online communities and forums where developers, researchers, and healthcare professionals discuss topics related to prosthetic limb control and assistive technologies. Websites like Stack Overflow and Reddit have dedicated communities for these topics.
