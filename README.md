@@ -14,30 +14,6 @@ ValorBionics is a program dedicated to empowering veterans with intuitive softwa
 - [Contributing](#contributing)
 - [License](#license)
 
-## Folder Structure
-
-├── docs/ additional documentation, diagrams, or design notes.
-├── src/
-│   ├── image_processing/
-│   └── motion_control/
-├── include/
-│   ├── image_processing/
-│   └── motion_control/
-├── launch/
-│   ├── image_processing.launch
-│   └── motion_control.launch
-├── config/
-│   ├── image_processing_params.yaml
-│   └── motion_control_params.yaml
-├── data/
-├── test/
-│   ├── test_image_processing.cpp
-│   └── test_motion_control.cpp
-├── scripts/
-├── CMakeLists.txt
-├── package.xml
-└── .gitignore
-
 ## Key Features
 
 - **Gesture Recognition:** Implement computer vision algorithms to recognize and interpret gestures made by the user, such as muscle contractions or hand movements.
