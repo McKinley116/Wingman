@@ -1,6 +1,5 @@
 ValorOS (Veteran built, Veteran Inspired)
 
-Project Description:
 ValorOS is a program dedicated to empowering veterans with intuitive software designed to control prosthetic limbs using advanced computer vision techniques. Tailored specifically to meet the unique needs of veterans, this software interprets muscle signals or external commands, enabling seamless control over prosthetic limbs.
 
 Project Phases:
