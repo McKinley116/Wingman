@@ -26,7 +26,7 @@ Project Phases:
    - Continuously monitor and maintain the software to address any issues or bugs that arise post-deployment.
 
 Libraries Included:
-- OpenCV: A widely used computer vision library for implementing gesture recognition algorithms and processing visual feedback.
+- 
 - C++: The primary programming language for software development, used for implementing core functionality.
 - Arduino: Hardware interfacing platform for controlling physical prosthetic limb components.
 
