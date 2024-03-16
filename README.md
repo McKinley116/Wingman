@@ -2,8 +2,6 @@ ValorOS (Veteran built, Veteran Inspired)
 
 ValorOS is a program dedicated to empowering veterans with intuitive software designed to control prosthetic limbs using advanced computer vision techniques. Tailored specifically to meet the unique needs of veterans, this software interprets muscle signals or external commands, enabling seamless control over prosthetic limbs.
 
-Project Proposal: Building a Robotic Hand with Servo Motors
-
 1. Introduction:
 In this project proposal, we outline the plan to develop a robotic hand controlled by an Arduino microcontroller using servo motors. The robotic hand aims to mimic human hand movements with precision control, enabling various applications in robotics, prosthetics, and human-machine interaction.
 
