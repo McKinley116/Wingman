@@ -40,10 +40,13 @@ arma::vec highPassFilter(const arma::vec& signal, int windowSize) {
     return highPassFiltered;
 }
 
+//Notch filter to filter out powerlime frequency
+arma::vec notchFilter(const arma::vec& signal, double sampleRate, double hunFrequency)
+
 int main() {
     // Sample EMG signal (replace with your actual signal)
     arma::vec emgSignal = {1, 2, 3, 4, 5, 4, 3, 2, 1};
-    int windowSize = 2;
+    int windowSize = 5;
 
     // Initialize EMG Signal Processing Module
     Initialize_EMG_Signal_Processing_Module();
