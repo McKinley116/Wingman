@@ -8,6 +8,18 @@ void Initialize_EMG_Signal_Processing_Module(){
     std::cout << "Initalizing EMG Signal Processing Module..." << std::endl;
 }
 
+//Notch filter to filter out powerlime frequency
+
+#include <armadillo>
+
+arma::vec notchFilter(const arma::vec& signal, double sampleRate, double humFrequency, double bandwidth) {
+    arma::vec frequencies = arma::linspace<arma::vec>(0, sampleRate, signal.n_elem);
+    arma::cx_vec transferFunction = 1 / (1 + arma::cx_double(0, bandwidth) * (1 / (frequencies - humFrequency) + 1 / (frequencies + humFrequency)));
+    arma::vec filteredSignal = arma::ifft(arma::fft(signal) % transferFunction).real();
+    return filteredSignal;
+}
+
+
 // Function to implement a low-pass filter with 'same' convolution behavior
 arma::vec lowPassFilter(const arma::vec& signal, int windowSize) {
     int halfWindowSize = windowSize / 2;
@@ -25,8 +37,7 @@ arma::vec lowPassFilter(const arma::vec& signal, int windowSize) {
         }
         else {
             // Handle mismatch in number of elements (optional)
-            // You can choose to skip or handle this case as per your requirements
-            // For now, we'll skip the convolution at this index
+           
             filteredSignal(i) = signal(i);
         }
     }
@@ -40,8 +51,7 @@ arma::vec highPassFilter(const arma::vec& signal, int windowSize) {
     return highPassFiltered;
 }
 
-//Notch filter to filter out powerlime frequency
-arma::vec notchFilter(const arma::vec& signal, double sampleRate, double hunFrequency)
+
 
 int main() {
     // Sample EMG signal (replace with your actual signal)
