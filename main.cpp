@@ -77,6 +77,13 @@ void Initalize_Gesture_Regcognition_Module(){
 // G7 = Thumbs up
 // G8 = Ring finger Grasp
 
+// Muscle Activation Function using a Sigmoid Function. (x) = 1/1+e^-x
+double muscleActivation(double time, double onsetTime, double peakActivation, double duration) {
+    //Sigmoid Function for activation curve.
+    double activation = peakActivation / (1 + exp(-(time - onsetTime)/ duration) ; 
+    return activation;
+}
+
 
 int main() {
     // Sample EMG signal (replace with your actual signal)
