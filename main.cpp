@@ -4,21 +4,31 @@
 #include <armadillo>
 
 // Initialize variables and modules
-void Initialize_EMG_Signal_Processing_Module(){
+void Initialize_EMG_Signal_Processing_Module() {
     std::cout << "Initalizing EMG Signal Processing Module..." << std::endl;
 }
 
-//Notch filter to filter out powerlime frequency
-
-#include <armadillo>
-
+// Notch filter to filter out powerline frequency
 arma::vec notchFilter(const arma::vec& signal, double sampleRate, double humFrequency, double bandwidth) {
+    // Compute the frequency response of the notch filter
     arma::vec frequencies = arma::linspace<arma::vec>(0, sampleRate, signal.n_elem);
-    arma::cx_vec transferFunction = 1 / (1 + arma::cx_double(0, bandwidth) * (1 / (frequencies - humFrequency) + 1 / (frequencies + humFrequency)));
-    arma::vec filteredSignal = arma::ifft(arma::fft(signal) % transferFunction).real();
+    arma::cx_vec transferFunction(signal.n_elem, arma::fill::ones);
+
+    for (size_t i = 0; i < frequencies.n_elem; ++i) {
+        if (std::abs(frequencies(i) - humFrequency) < bandwidth / 2) {
+            transferFunction(i) = 0; // Apply notch filter
+        }
+    }
+
+    // Apply the frequency response to the signal using the Fourier transform
+    arma::cx_vec fft_signal = arma::fft(signal);
+    arma::cx_vec filtered_fft_signal = fft_signal % transferFunction;
+
+    // Inverse transform the filtered signal to obtain the time-domain signal
+    arma::vec filteredSignal = arma::real(filtered_fft_signal);
+
     return filteredSignal;
 }
-
 
 // Function to implement a low-pass filter with 'same' convolution behavior
 arma::vec lowPassFilter(const arma::vec& signal, int windowSize) {
@@ -37,13 +47,15 @@ arma::vec lowPassFilter(const arma::vec& signal, int windowSize) {
         }
         else {
             // Handle mismatch in number of elements (optional)
-           
+            // You can choose to skip or handle this case as per your requirements
+            // For now, we'll skip the convolution at this index
             filteredSignal(i) = signal(i);
         }
     }
 
     return filteredSignal;
 }
+
 // Function to implement a high-pass filter
 arma::vec highPassFilter(const arma::vec& signal, int windowSize) {
     arma::vec lowPassFiltered = lowPassFilter(signal, windowSize); // Apply low-pass filtering
@@ -51,14 +63,16 @@ arma::vec highPassFilter(const arma::vec& signal, int windowSize) {
     return highPassFiltered;
 }
 
+void Initalize_Gesture_Regcognition_Module(){
+    std::cout << "Initalizing Gesture Recoginition Module.." << std::endl;
+}
 
 
 int main() {
     // Sample EMG signal (replace with your actual signal)
-    arma::vec emgSignal = {1, 2, 3, 4, 5, 4, 3, 2, 1};
+    arma::vec emgSignal = {0.2, 3.45, -0.23};
     int windowSize = 5;
 
-    // Initialize EMG Signal Processing Module
     Initialize_EMG_Signal_Processing_Module();
 
     // Apply low-pass filtering
@@ -72,11 +86,12 @@ int main() {
     std::cout << "Low-pass Filtered Signal:\n" << lowPassFilteredSignal << std::endl;
     std::cout << "High-pass Filtered Signal:\n" << highPassFilteredSignal << std::endl;
 
+    Initalize_Gesture_Regcognition_Module();
+
+
+
     return 0;
 }
-
-//Initalize_Gesture_Regcognition_Modle()
-
 //Initalize_Virtual_Prosthetic_Limb()
 
 //Initialize_Simulation_Environment()
