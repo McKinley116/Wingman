@@ -67,6 +67,16 @@ void Initalize_Gesture_Regcognition_Module(){
     std::cout << "Initalizing Gesture Recoginition Module.." << std::endl;
 }
 
+// List of Hand gesture identifications (G1-G8) 
+// G1 = Fist
+// G2 = Open
+// G3 = Two-Finger Pinch
+// G4 = Three-Finger Pinch
+// G5 = Pointing
+// G6 = Hook
+// G7 = Thumbs up
+// G8 = Ring finger Grasp
+
 
 int main() {
     // Sample EMG signal (replace with your actual signal)
