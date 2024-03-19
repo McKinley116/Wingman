@@ -1,0 +1,61 @@
+Project Name: "ValorOS" or "Wingman"
+
+References:
+EMG - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6412999/
+Armadillo Library - https://arma.sourceforge.net/docs.html#Mat
+EMG Reference Code - https://github.com/McKinley116/EMGFilters/blob/master/EMGFilters.cpp
+
+Table of Contents
+1. Introduction
+2. Features
+3. Getting Started
+4. Usage
+5. Modules
+6. Examples
+7. Contributing
+8. License
+
+Introduction:
+Wingman is a C++ project designed to control prosthetic limbs using computer vision techniques and signal processing algorithms. It allows users to intuitively control their prosthetic limbs through gestures and muscle signals, providing a more natural and responsive interface.
+
+Features:
+- EMG Signal Processing: Process electromyography (EMG) signals to extract muscle activity data.
+- Gesture Recognition: Recognize user gestures from EMG signals or external commands.
+- Virtual Prosthetic Limb: Simulate the movement of a prosthetic limb based on control commands.
+- Simulation Environment: Provide a graphical or command-line interface for users to interact with the software in a simulated environment.
+- Filtering Algorithms: Implement low-pass, high-pass, and notch filters to remove noise from EMG signals.
+
+Getting Started:
+To get started with the Prosthetic Limb Control Software, follow these steps:
+1. Clone the project repository from GitHub.
+2. Install the necessary dependencies (Armadillo, etc.).
+3. Compile the source code using a C++ compiler (e.g., g++).
+
+Usage:
+Wingman can be used for various applications, including:
+- Research and development of prosthetic limb control systems.
+- Rehabilitation and therapy for individuals with limb disabilities.
+- Educational purposes in computer science, biomedical engineering, and related fields.
+
+Modules:
+The software consists of the following modules:
+- EMG Signal Processing: Process EMG signals to extract relevant muscle activity data.
+- Gesture Recognition: Recognize user gestures from processed EMG signals.
+- Control Logic: Translate recognized gestures into control commands for the virtual prosthetic limb.
+- Simulation Environment: Provide a simulated environment for user interaction and testing.
+
+Examples:
+Here are some examples demonstrating the usage of Wingman:
+1. Basic Usage: Simulate control of a prosthetic limb using pre-recorded EMG signals.
+2. Gesture Recognition: Train the software to recognize specific gestures for controlling the prosthetic limb.
+3. Real-time Control: Interface with hardware devices to control a physical prosthetic limb in real-time.
+
+Contributing:
+Contributions to Wingman are welcome! You can contribute by:
+- Reporting bugs or suggesting improvements.
+- Adding new features or functionality.
+- Providing documentation updates or examples.
+
+License:
+Wingman is licensed under the MIT License.
+
