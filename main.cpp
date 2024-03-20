@@ -80,15 +80,15 @@ void Initalize_Gesture_Regcognition_Module(){
 // Muscle Activation Function using a Sigmoid Function. (x) = 1/1+e^-x
 double muscleActivation(double time, double onsetTime, double peakActivation, double duration) {
     //Sigmoid Function for activation curve.
-    double activation = peakActivation / (1 + exp(-(time - onsetTime)/ duration) ; 
+    double activation = peakActivation / (1 + exp(-(time - onsetTime)/ duration)); 
     return activation;
 }
 
 
 int main() {
     // Sample EMG signal (replace with your actual signal)
-    arma::vec emgSignal = {0.2, 3.45, -0.23};
-    int windowSize = 5;
+    arma::vec emgSignal = {1.0, 2.0, 3.0, 4.0, 5.0, 4.0, 3.0, 2.0, 1.0};
+    int windowSize = 4.0;
 
     Initialize_EMG_Signal_Processing_Module();
 
@@ -105,6 +105,12 @@ int main() {
 
     Initalize_Gesture_Regcognition_Module();
 
+    //Test for Muscle Activation Function
+    double time = 2.0;
+    double onsetTime = 1.0;
+    double peakActivation = 1.5;
+    double duration = 3.0;
+    double result = muscleActivation(time, onsetTime, peakActivation, duration);
 
 
     return 0;
