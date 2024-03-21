@@ -1,6 +1,7 @@
 #include <initializer_list>
 #include <iostream>
 #include <cmath>
+#include <vector>
 #include <armadillo>
 
 // Initialize variables and modules
@@ -58,9 +59,6 @@ arma::vec lowPassFilter(const arma::vec& signal, int windowSize) {
             filteredSignal(i) = arma::dot(signalSegment, window) / windowSize;
         }
         else {
-            // Handle mismatch in number of elements (optional)
-            // You can choose to skip or handle this case as per your requirements
-            // For now, we'll skip the convolution at this index
             filteredSignal(i) = signal(i);
         }
     }
@@ -92,7 +90,8 @@ double muscleActivation(double time, double onsetTime, double peakActivation, do
 // G8 = Ring finger Grasp
 
 int main() {
-        Initialize_EMG_Signal_Processing_Module();
+
+    Initialize_EMG_Signal_Processing_Module();
 
       // EMG signal and window size input
     arma::vec emgSignal = {5.0, 6.0, 15.0, 10.0, 16.0, 20.0}; // These are in Hz.
