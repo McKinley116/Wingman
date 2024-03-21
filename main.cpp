@@ -8,6 +8,10 @@ void Initialize_EMG_Signal_Processing_Module() {
     std::cout << "Initalizing EMG Signal Processing Module..." << std::endl; 
 }
 
+void Initalize_Gesture_Regcognition_Module(){
+    std::cout << "Initalizing Gesture Recoginition Module.." << std::endl;
+}
+
 void Initalize_Virtual_Prosthetic_Limb() {
     std::cout << "Powering Wingman Arm..." << std::endl;
 }
@@ -15,26 +19,6 @@ void Initalize_Virtual_Prosthetic_Limb() {
 void Initialize_Simulation_Environment() {
     std::cout << "Setting up Environment..." << std::endl;
 }
-
-// Main loop to continoulsy read user input
-// Capture simulated EMG signals or gestures from user input
-//emg_signals = Capture_EMG_Signals_From_User()
-//recoginized_gesture = Recoginize_Gesture_From_User_Input()
-
-// Process EMG signals and recoginze gestures
-//processed_signals = Process_EMG_Signals(emg_signals)
-//limb_command = Translate_Gensture_To_Limb_Command(recognized_gesture)
-
-// Control virtual prosthetic limb
-//Move_Virtual_Limb(limb_commands)
-
-// Update simulation environtment and display
-//Update_Simulation_Envrionment()
-//Display_Virtual_Limb()
-
-// Check for user input to exit
-//if (User_PResses_Exit_Button())
- //   simulation_running = false;
 
 // Notch filter to filter out powerline frequency, filters out 50HZ and 60HZ.
 arma::vec notchFilter(const arma::vec& signal, double sampleRate, double humFrequency, double bandwidth) {
@@ -91,10 +75,6 @@ arma::vec highPassFilter(const arma::vec& signal, int windowSize) {
     return highPassFiltered;
 }
 
-void Initalize_Gesture_Regcognition_Module(){
-    std::cout << "Initalizing Gesture Recoginition Module.." << std::endl;
-}
-
 // Muscle Activation Function using a Sigmoid Function. (x) = 1/1+e^-x
 double muscleActivation(double time, double onsetTime, double peakActivation, double duration) {
     //Sigmoid Function for activation curve.
@@ -140,4 +120,24 @@ int main() {
 
     return 0;
 }
+// Main loop to continoulsy read user input
+// Capture simulated EMG signals or gestures from user input
+//emg_signals = Capture_EMG_Signals_From_User()
+//recoginized_gesture = Recoginize_Gesture_From_User_Input()
+
+// Process EMG signals and recoginze gestures
+//processed_signals = Process_EMG_Signals(emg_signals)
+//limb_command = Translate_Gensture_To_Limb_Command(recognized_gesture)
+
+// Control virtual prosthetic limb
+//Move_Virtual_Limb(limb_commands)
+
+// Update simulation environtment and display
+//Update_Simulation_Envrionment()
+//Display_Virtual_Limb()
+
+// Check for user input to exit
+//if (User_PResses_Exit_Button())
+ //   simulation_running = false;
+
 
