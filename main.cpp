@@ -9,7 +9,7 @@ void Initialize_EMG_Signal_Processing_Module() {
    
 }
 
-// Notch filter to filter out powerline frequency
+// Notch filter to filter out powerline frequency, filters out 50HZ and 60HZ.
 arma::vec notchFilter(const arma::vec& signal, double sampleRate, double humFrequency, double bandwidth) {
     // Compute the frequency response of the notch filter
     arma::vec frequencies = arma::linspace<arma::vec>(0, sampleRate, signal.n_elem);
@@ -31,7 +31,7 @@ arma::vec notchFilter(const arma::vec& signal, double sampleRate, double humFreq
     return filteredSignal;
 }
 
-// Function to implement a low-pass filter with 'same' convolution behavior
+// Function to implement a low-pass filter with 'same' convolution behavior, filter out above 150HZ
 arma::vec lowPassFilter(const arma::vec& signal, int windowSize) {
     int halfWindowSize = windowSize / 2;
     arma::vec window(windowSize, arma::fill::ones); // Define a window for averaging
@@ -57,7 +57,7 @@ arma::vec lowPassFilter(const arma::vec& signal, int windowSize) {
     return filteredSignal;
 }
 
-// Function to implement a high-pass filter
+// Function to implement a high-pass filter to filter out below 20HZ
 arma::vec highPassFilter(const arma::vec& signal, int windowSize) {
     arma::vec lowPassFiltered = lowPassFilter(signal, windowSize); // Apply low-pass filtering
     arma::vec highPassFiltered = signal - lowPassFiltered; // Subtract low-pass filtered signal from original signal
