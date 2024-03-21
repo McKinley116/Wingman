@@ -6,11 +6,13 @@
 
 // Initialize variables and modules
 void Initialize_EMG_Signal_Processing_Module() {
-    std::cout << "Initalizing EMG Signal Processing Module..." << std::endl; 
+    std::cout << "Initalizing EMG Signal Processing Module..." << std::endl;
+    std::cout << "---------------------------------------------" << std::endl;
 }
 
 void Initalize_Gesture_Regcognition_Module(){
     std::cout << "Initalizing Gesture Recoginition Module.." << std::endl;
+    std::cout << "--------------------------------------------" << std::endl;
 }
 
 void Initalize_Virtual_Prosthetic_Limb() {
