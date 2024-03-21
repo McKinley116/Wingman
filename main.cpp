@@ -6,8 +6,35 @@
 // Initialize variables and modules
 void Initialize_EMG_Signal_Processing_Module() {
     std::cout << "Initalizing EMG Signal Processing Module..." << std::endl; 
-   
 }
+
+void Initalize_Virtual_Prosthetic_Limb() {
+    std::cout << "Powering Wingman Arm..." << std::endl;
+}
+
+void Initialize_Simulation_Environment() {
+    std::cout << "Setting up Environment..." << std::endl;
+}
+
+// Main loop to continoulsy read user input
+// Capture simulated EMG signals or gestures from user input
+//emg_signals = Capture_EMG_Signals_From_User()
+//recoginized_gesture = Recoginize_Gesture_From_User_Input()
+
+// Process EMG signals and recoginze gestures
+//processed_signals = Process_EMG_Signals(emg_signals)
+//limb_command = Translate_Gensture_To_Limb_Command(recognized_gesture)
+
+// Control virtual prosthetic limb
+//Move_Virtual_Limb(limb_commands)
+
+// Update simulation environtment and display
+//Update_Simulation_Envrionment()
+//Display_Virtual_Limb()
+
+// Check for user input to exit
+//if (User_PResses_Exit_Button())
+ //   simulation_running = false;
 
 // Notch filter to filter out powerline frequency, filters out 50HZ and 60HZ.
 arma::vec notchFilter(const arma::vec& signal, double sampleRate, double humFrequency, double bandwidth) {
@@ -68,6 +95,12 @@ void Initalize_Gesture_Regcognition_Module(){
     std::cout << "Initalizing Gesture Recoginition Module.." << std::endl;
 }
 
+// Muscle Activation Function using a Sigmoid Function. (x) = 1/1+e^-x
+double muscleActivation(double time, double onsetTime, double peakActivation, double duration) {
+    //Sigmoid Function for activation curve.
+    double activation = peakActivation / (1 + exp(-(time - onsetTime)/ duration)); 
+    return activation;
+}
 // List of Hand gesture identifications (G1-G8) 
 // G1 = Fist
 // G2 = Open
@@ -78,20 +111,12 @@ void Initalize_Gesture_Regcognition_Module(){
 // G7 = Thumbs up
 // G8 = Ring finger Grasp
 
-// Muscle Activation Function using a Sigmoid Function. (x) = 1/1+e^-x
-double muscleActivation(double time, double onsetTime, double peakActivation, double duration) {
-    //Sigmoid Function for activation curve.
-    double activation = peakActivation / (1 + exp(-(time - onsetTime)/ duration)); 
-    return activation;
-}
-
-
 int main() {
         Initialize_EMG_Signal_Processing_Module();
 
       // EMG signal and window size input
-    arma::vec emgSignal = {50.0, 60.0, 15.0, 10.0, 160.0, 200.0};
-    int windowSize = 2.0;
+    arma::vec emgSignal = {5.0, 6.0, 15.0, 10.0, 16.0, 20.0}; // These are in Hz.
+    int windowSize = 5;
     // Apply low-pass filtering
     arma::vec lowPassFilteredSignal = lowPassFilter(emgSignal, windowSize);
     // Apply high-pass filtering
@@ -115,26 +140,4 @@ int main() {
 
     return 0;
 }
-//Initalize_Virtual_Prosthetic_Limb()
 
-//Initialize_Simulation_Environment()
-
-// Main loop to continoulsy read user input
-// Capture simulated EMG signals or gestures from user input
-//emg_signals = Capture_EMG_Signals_From_User()
-//recoginized_gesture = Recoginize_Gesture_From_User_Input()
-
-// Process EMG signals and recoginze gestures
-//processed_signals = Process_EMG_Signals(emg_signals)
-//limb_command = Translate_Gensture_To_Limb_Command(recognized_gesture)
-
-// Control virtual prosthetic limb
-//Move_Virtual_Limb(limb_commands)
-
-// Update simulation environtment and display
-//Update_Simulation_Envrionment()
-//Display_Virtual_Limb()
-
-// Check for user input to exit
-//if (User_PResses_Exit_Button())
- //   simulation_running = false;
