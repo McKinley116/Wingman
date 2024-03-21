@@ -5,7 +5,8 @@
 
 // Initialize variables and modules
 void Initialize_EMG_Signal_Processing_Module() {
-    std::cout << "Initalizing EMG Signal Processing Module..." << std::endl;
+    std::cout << "Initalizing EMG Signal Processing Module..." << std::endl; 
+   
 }
 
 // Notch filter to filter out powerline frequency
@@ -86,24 +87,23 @@ double muscleActivation(double time, double onsetTime, double peakActivation, do
 
 
 int main() {
-    // Sample EMG signal (replace with your actual signal)
-    arma::vec emgSignal = {1.0, 2.0, 3.0, 4.0, 5.0, 4.0, 3.0, 2.0, 1.0};
-    int windowSize = 4.0;
+        Initialize_EMG_Signal_Processing_Module();
 
-    Initialize_EMG_Signal_Processing_Module();
-
+      // EMG signal and window size input
+    arma::vec emgSignal = {50.0, 60.0, 15.0, 10.0, 160.0, 200.0};
+    int windowSize = 2.0;
     // Apply low-pass filtering
     arma::vec lowPassFilteredSignal = lowPassFilter(emgSignal, windowSize);
-
     // Apply high-pass filtering
     arma::vec highPassFilteredSignal = highPassFilter(emgSignal, windowSize);
-
     // Display original and filtered signals
     std::cout << "Original EMG Signal:\n" << emgSignal << std::endl;
     std::cout << "Low-pass Filtered Signal:\n" << lowPassFilteredSignal << std::endl;
     std::cout << "High-pass Filtered Signal:\n" << highPassFilteredSignal << std::endl;
 
     Initalize_Gesture_Regcognition_Module();
+
+
 
     //Test for Muscle Activation Function
     double time = 2.0;
