@@ -1,9 +1,10 @@
+#include <algorithm>
 #include <iostream>
 #include <cmath>
 #include <vector>
 
 // Notch Filter, filters out 50/60Hz
-std::vector<double> notchFilter(const std::vector<double>& signal, double sampleRate, double notchFrequency. double bandwidth){
+std::vector<double> notchFilter(const std::vector<double>& signal, double sampleRate, double notchFrequency, double bandwidth){
     std::vector<double> filteredSignal;
     // Computes coefficients for filter
     double w0 = 2.0 * M_PI * notchFrequency / sampleRate;
@@ -30,10 +31,45 @@ std::vector<double> notchFilter(const std::vector<double>& signal, double sample
 
 //Low Filter, filters out above 120Hz
     std::vector<double> lowpassFilter(const std::vector<double>& signal, double sampleRate, double humFrequency, double bandwidth){
-    
+    std::vector<double> filteredSignal;
+
+    // computes coefficients
+    int filterLength = 31;
+    int cutoffFrequency = 2;
+    std::vector<double> kernal (filterLength);
+    double nyquistFrequency = sampleRate/ 2.0;
+    double omegaC = 2.0 * M_PI * cutoffFrequency / nyquistFrequency;
+
+    for (int n = 0; n < filterLength; ++n){
+        if (n == filterLength / 2){
+        kernal[n] = 2.0 * cutoffFrequency / sampleRate;
+        }else {
+            double sinc = sin(omegaC * (n - filterLength / 2)) / (M_PI * (n - filterLength) / 2);
+            kernal[n] = sinc * 0.54 - 0.46 * cos(2.0 * M_PI * n / (filterLength - 1)); 
+        }
+    }
+
+    // Applies filter with convolution.
+    for (size_t i = filterLength / 2; i < signal.size() - filterLength / 2; i++) {
+        double filteredValue = 0.0;
+
+    for (size_t j = 0; j < kernal.size(); j++){
+            filteredValue += signal[i - filterLength / 2 * j] * kernal[j];
+        }
+        filteredSignal.push_back(filteredValue);
+    }
+   
+    return filteredSignal;
+}
+
+std::vector<double> highpassFilter(const std::vector<double>& signal, double sampleRate, double humFrequency, double bandwidth){
+    std::vector<double> lowpassFilteredSignal = lowpassFilter(signal, cutoffFrequency, sampleRate);
+    std::vector<double> highpassFilterSignal;
+    // computes foefficients
+
 }
 int main () {
-    
+   int cutoffFrequency; 
 
     return 0;
 }
