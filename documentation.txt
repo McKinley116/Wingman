@@ -5,6 +5,8 @@ EMG - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6412999/
 Armadillo Library - https://arma.sourceforge.net/docs.html#Mat
 EMG Reference Code - https://github.com/McKinley116/EMGFilters/blob/master/EMGFilters.cpp
 EMG Gesture ID - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10669079/
+PSYONIC - https://www.psyonic.io/
+OpenBionics - https://openbionics.com/
 
 Table of Contents
 1. Introduction
