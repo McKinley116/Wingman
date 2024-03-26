@@ -74,14 +74,9 @@ arma::vec highPassFilter(const arma::vec& signal, int windowSize) {
     arma::vec highPassFiltered = signal - lowPassFiltered; // Subtract low-pass filtered signal from original signal
     return highPassFiltered;
 }
-
-// Muscle Activation Function using a Sigmoid Function. (x) = 1/1+e^-x
-double muscleActivation(double time, double onsetTime, double peakActivation, double duration) {
-    //Sigmoid Function for activation curve.
-    double activation = peakActivation / (1 + exp(-(time - onsetTime)/ duration)); 
-    return activation;
-}
-// List of Hand gesture identifications (G1-G8) 
+// Muscle Activation Functions using a Sigmoid Function. (x) = 1/1+e^-x
+// For gestures (G1-G8)
+// // List of Hand gesture identifications (G1-G8) 
 // G1 = Fist
 // G2 = Open
 // G3 = Two-Finger Pinch
@@ -90,6 +85,12 @@ double muscleActivation(double time, double onsetTime, double peakActivation, do
 // G6 = Hook
 // G7 = Thumbs up
 // G8 = Ring finger Grasp
+
+double muscleActivation(double time, double onsetTime, double peakActivation, double duration) {
+    //Sigmoid Function for activation curve.
+    double activation = peakActivation / (1 + exp(-(time - onsetTime)/ duration)); 
+    return activation;
+}
 
 int main() {
 
@@ -109,14 +110,21 @@ int main() {
 
     Initalize_Gesture_Regcognition_Module();
 
+    std::cout << "Hand Gestures are classified as follows: " << std::endl; 
+    std::cout << "G1 = Fist" << std::endl;
+    std::cout << "G2 = Open" << std::endl;
+    std::cout << "G3 = Two Finger Pinch" << std::endl;
+    std::cout << "G4 = Three Finger Pinch" << std::endl;
+    std::cout << "G5 = Pointing" << std::endl;
+    std::cout << "G6 = Hook" << std::endl;
+    std::cout << "G7 = Thumbs Up" << std::endl;
+    std::cout << "G8 = Ring Finger Grasp" << std::endl;
 
 
-    //Test for Muscle Activation Function
-    double time = 2.0;
-    double onsetTime = 1.0;
-    double peakActivation = 1.5;
-    double duration = 3.0;
-    double result = muscleActivation(time, onsetTime, peakActivation, duration);
+
+
+
+
 
 
     return 0;
