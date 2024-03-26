@@ -110,8 +110,17 @@ int main() {
 
     Initalize_Gesture_Regcognition_Module();
 
-    std::cout << "Hand Gestures are classified as follows: " << std::endl; 
-    std::cout << "G1 = Fist" << std::endl;
+    double time = 5.0; // seconds
+    double activationFist = muscleActivation(time, 0.5, 1.0, 1.0);
+    double activatonOpen = muscleActivation(time, 1.0, 0.6, 1.5);
+    double activatonTwoFinger = muscleActivation(time, 1.2, 1.6, 0.5);
+    double activatonThreeFinger = muscleActivation(time, 1.5, 2.6, 1.5);
+    double activatonPointing = muscleActivation(time, 1.0, 0.2, 1.0);
+    double activatonHook = muscleActivation(time, 1.1, 1.6, 1.7);
+    double activatonThumbsUp = muscleActivation(time, 1.0, 0.6, 1.5);
+    double activatonRingFingerGrasp = muscleActivation(time, 1.3, 1.3, 1.8);
+    std::cout << "Hand Gestures are classified as follows: running for 5 seconds" << std::endl; 
+    std::cout << "G1 = Fist" << std::endl;   
     std::cout << "G2 = Open" << std::endl;
     std::cout << "G3 = Two Finger Pinch" << std::endl;
     std::cout << "G4 = Three Finger Pinch" << std::endl;
