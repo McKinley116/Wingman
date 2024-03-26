@@ -1,6 +1,6 @@
-ValorOS (Veteran built, Veteran Inspired)
+Wingman (Veteran built, Veteran Inspired)
 
-ValorOS is a program dedicated to empowering veterans with intuitive software designed to control prosthetic limbs using advanced computer vision techniques. Tailored specifically to meet the unique needs of veterans, this software interprets muscle signals or external commands, enabling seamless control over prosthetic limbs.
+Wingman is a program dedicated to empowering veterans with intuitive software designed to control prosthetic limbs using advanced computer vision techniques. Tailored specifically to meet the unique needs of veterans, this software interprets muscle signals or external commands, enabling seamless control over prosthetic limbs.(SIMULATED)
 
 EMG Signal Processing:
 - Use standard C++ libraries or specific signal processing libraries like Armadillo or FFTW to process EMG signals.
