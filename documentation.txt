@@ -7,6 +7,9 @@ EMG Reference Code - https://github.com/McKinley116/EMGFilters/blob/master/EMGFi
 EMG Gesture ID - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10669079/
 PSYONIC - https://www.psyonic.io/
 OpenBionics - https://openbionics.com/
+Finite Impulse Response - https://en.wikipedia.org/wiki/Finite_impulse_response
+Gazebo (Simulator) - https://gazebosim.org/docs/all/getstarted
+Ogre (Simulator) - https://www.ogre3d.org/
 
 Table of Contents
 1. Introduction
