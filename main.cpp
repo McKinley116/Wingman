@@ -4,25 +4,7 @@
 #include <vector>
 #include <armadillo>
 
-// Initialize variables and modules
-void Initialize_EMG_Signal_Processing_Module() {
-    std::cout << "Initalizing EMG Signal Processing Module..." << std::endl;
-    std::cout << "---------------------------------------------" << std::endl;
-}
-
-void Initalize_Gesture_Regcognition_Module(){
-    std::cout << "Initalizing Gesture Recoginition Module.." << std::endl;
-    std::cout << "--------------------------------------------" << std::endl;
-}
-
-void Initalize_Virtual_Prosthetic_Limb() {
-    std::cout << "Powering Wingman Arm..." << std::endl;
-}
-
-void Initialize_Simulation_Environment() {
-    std::cout << "Setting up Environment..." << std::endl;
-}
-
+// EMG FILTERING MODULE
 // Notch filter to filter out powerline frequency, filters out 50HZ and 60HZ.
 arma::vec notchFilter(const arma::vec& signal, double sampleRate, double humFrequency, double bandwidth) {
     // Compute the frequency response of the notch filter
@@ -74,29 +56,33 @@ arma::vec highPassFilter(const arma::vec& signal, int windowSize) {
     arma::vec highPassFiltered = signal - lowPassFiltered; // Subtract low-pass filtered signal from original signal
     return highPassFiltered;
 }
-// Muscle Activation Functions using a Sigmoid Function. (x) = 1/1+e^-x
-// For gestures (G1-G8)
-// // List of Hand gesture identifications (G1-G8) 
-// G1 = Fist
-// G2 = Open
-// G3 = Two-Finger Pinch
-// G4 = Three-Finger Pinch
-// G5 = Pointing
-// G6 = Hook
-// G7 = Thumbs up
-// G8 = Ring finger Grasp
 
+// GESTURE RECOGINITION MODULE
+// Muscle Activation Functions using a Sigmoid Function. (x) = 1/1+e^-x
 double muscleActivation(double time, double onsetTime, double peakActivation, double duration) {
     //Sigmoid Function for activation curve.
     double activation = peakActivation / (1 + exp(-(time - onsetTime)/ duration)); 
     return activation;
 }
 
+
+// VIRTUAL LIMB
+
+// SIMULATION ENVIRONMENT
+//The COMPONENTS part checks that OGRE was built the way we need it
+//The CONFIG flag makes sure we get OGRE instead of OGRE-next
+//find_package(OGRE REQUIRED COMPONENTS Bites CONFIG)
+ 
+//add the source files as usual
+//add_executable(0_Bootstrap Bootstrap.cpp)
+ 
+//this also sets the includes and pulls third party dependencies
+//target_link_libraries(0_Bootstrap OgreBites)
+
+
 int main() {
 
-    Initialize_EMG_Signal_Processing_Module();
-
-      // EMG signal and window size input
+    // EMG signal and window size input
     arma::vec emgSignal = {5.0, 6.0, 15.0, 10.0, 16.0, 20.0}; // These are in Hz.
     int windowSize = 5;
     // Apply low-pass filtering
@@ -108,10 +94,8 @@ int main() {
     std::cout << "Low-pass Filtered Signal:\n" << lowPassFilteredSignal << std::endl;
     std::cout << "High-pass Filtered Signal:\n" << highPassFilteredSignal << std::endl;
 
-    Initalize_Gesture_Regcognition_Module();
-
     double time = 5.0; // seconds
-    double activationFist = muscleActivation(time, 0.5, 1.0, 1.0);
+    double activationFist = muscleActivation(time, 1.0, 0.6, 1.5);
     double activatonOpen = muscleActivation(time, 1.0, 0.6, 1.5);
     double activatonTwoFinger = muscleActivation(time, 1.2, 1.6, 0.5);
     double activatonThreeFinger = muscleActivation(time, 1.5, 2.6, 1.5);
@@ -128,34 +112,9 @@ int main() {
     std::cout << "G6 = Hook" << std::endl;
     std::cout << "G7 = Thumbs Up" << std::endl;
     std::cout << "G8 = Ring Finger Grasp" << std::endl;
-
-
-
-
-
-
+  
 
 
     return 0;
 }
-// Main loop to continoulsy read user input
-// Capture simulated EMG signals or gestures from user input
-//emg_signals = Capture_EMG_Signals_From_User()
-//recoginized_gesture = Recoginize_Gesture_From_User_Input()
-
-// Process EMG signals and recoginze gestures
-//processed_signals = Process_EMG_Signals(emg_signals)
-//limb_command = Translate_Gensture_To_Limb_Command(recognized_gesture)
-
-// Control virtual prosthetic limb
-//Move_Virtual_Limb(limb_commands)
-
-// Update simulation environtment and display
-//Update_Simulation_Envrionment()
-//Display_Virtual_Limb()
-
-// Check for user input to exit
-//if (User_PResses_Exit_Button())
- //   simulation_running = false;
-
 
