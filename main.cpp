@@ -4,7 +4,6 @@
 #include <vector>
 #include <armadillo>
 
-// EMG FILTERING MODULE
 // Notch filter to filter out powerline frequency, filters out 50HZ and 60HZ.
 arma::vec notchFilter(const arma::vec& signal, double sampleRate, double humFrequency, double bandwidth) {
     // Compute the frequency response of the notch filter
@@ -57,7 +56,6 @@ arma::vec highPassFilter(const arma::vec& signal, int windowSize) {
     return highPassFiltered;
 }
 
-// GESTURE RECOGINITION MODULE
 // Muscle Activation Functions using a Sigmoid Function. (x) = 1/1+e^-x
 double muscleActivation(double time, double onsetTime, double peakActivation, double duration) {
     //Sigmoid Function for activation curve.
@@ -65,6 +63,59 @@ double muscleActivation(double time, double onsetTime, double peakActivation, do
     return activation;
 }
 
+//GESTURE CLASSES
+enum Gesture {
+    FIST,
+    OPEN,
+    TWO_FINGER_PINCH,
+    THREE_FINGER_PINCH,
+    POINTING,
+    HOOK,
+    THUMBS_UP,
+    RING_FINGER_GRASP,
+    NUM_GESTURES
+};
+
+//GESTURE STRUCTURE
+struct GestureData {
+    Gesture gesture;
+    std::vector<double> emgSignal;
+};
+
+//GENERATES EMG SIGNAL (uses a matrix(MAT))
+arma::mat generateEMGSignal(int numSample, Gesture gesture) {
+    double mean = 0.0;
+    double stddev = 1.0;
+
+    arma::mat emgSignal(numSample, 1, arma::fill::zeros);
+    switch (gesture) {
+    case FIST:
+        emgSignal.randn();
+        break;
+    case OPEN:
+        emgSignal.randn();
+        break;
+    case TWO_FINGER_PINCH:
+        emgSignal.randn();
+        break;
+    case THREE_FINGER_PINCH:
+        emgSignal.randn();
+        break;
+    case POINTING:
+        emgSignal.randn();
+        break;
+    case HOOK:
+        emgSignal.randn();
+        break;
+    case THUMBS_UP:
+        emgSignal.randn();
+        break;
+    case RING_FINGER_GRASP:
+        emgSignal.randn();
+        break; 
+    }
+    return emgSignal;
+}
 
 // VIRTUAL LIMB
 
@@ -94,16 +145,7 @@ int main() {
     std::cout << "Low-pass Filtered Signal:\n" << lowPassFilteredSignal << std::endl;
     std::cout << "High-pass Filtered Signal:\n" << highPassFilteredSignal << std::endl;
 
-    double time = 5.0; // seconds
-    double activationFist = muscleActivation(time, 1.0, 0.6, 1.5);
-    double activatonOpen = muscleActivation(time, 1.0, 0.6, 1.5);
-    double activatonTwoFinger = muscleActivation(time, 1.2, 1.6, 0.5);
-    double activatonThreeFinger = muscleActivation(time, 1.5, 2.6, 1.5);
-    double activatonPointing = muscleActivation(time, 1.0, 0.2, 1.0);
-    double activatonHook = muscleActivation(time, 1.1, 1.6, 1.7);
-    double activatonThumbsUp = muscleActivation(time, 1.0, 0.6, 1.5);
-    double activatonRingFingerGrasp = muscleActivation(time, 1.3, 1.3, 1.8);
-    std::cout << "Hand Gestures are classified as follows: running for 5 seconds" << std::endl; 
+    std::cout << "Hand Gestures are classified as follows: " << std::endl; 
     std::cout << "G1 = Fist" << std::endl;   
     std::cout << "G2 = Open" << std::endl;
     std::cout << "G3 = Two Finger Pinch" << std::endl;
@@ -112,9 +154,18 @@ int main() {
     std::cout << "G6 = Hook" << std::endl;
     std::cout << "G7 = Thumbs Up" << std::endl;
     std::cout << "G8 = Ring Finger Grasp" << std::endl;
-  
 
+    int numSample = 10;
 
+    //THIS GENERATES EMG SIGNALS BASED ON SAMPLE SIZE
+    arma::mat emgSignalFist = generateEMGSignal(numSample, FIST);
+    arma::mat emgSignalOpen = generateEMGSignal(numSample, OPEN);
+    arma::mat emgSignalTwoFingerPinch = generateEMGSignal(numSample, TWO_FINGER_PINCH);
+
+    std::cout << "EMG Signal generated for FIST gesture:\n" << emgSignalFist << std::endl;
+    std::cout << "EMG Signal generated for OPEN gesture:\n" << emgSignalOpen << std::endl;
+    std::cout << "EMG Signal generated for TWO FINGER PINCH gesture:\n" << emgSignalTwoFingerPinch << std::endl;
+    
     return 0;
 }
 
