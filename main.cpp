@@ -132,19 +132,7 @@ arma::mat generateEMGSignal(int numSample, Gesture gesture) {
 
 
 int main() {
-
-    // EMG signal and window size input
-    arma::vec emgSignal = {5.0, 6.0, 15.0, 10.0, 16.0, 20.0}; // These are in Hz.
-    int windowSize = 5;
-    // Apply low-pass filtering
-    arma::vec lowPassFilteredSignal = lowPassFilter(emgSignal, windowSize);
-    // Apply high-pass filtering
-    arma::vec highPassFilteredSignal = highPassFilter(emgSignal, windowSize);
-    // Display original and filtered signals
-    std::cout << "Original EMG Signal:\n" << emgSignal << std::endl;
-    std::cout << "Low-pass Filtered Signal:\n" << lowPassFilteredSignal << std::endl;
-    std::cout << "High-pass Filtered Signal:\n" << highPassFilteredSignal << std::endl;
-
+ 
     std::cout << "Hand Gestures are classified as follows: " << std::endl; 
     std::cout << "G1 = Fist" << std::endl;   
     std::cout << "G2 = Open" << std::endl;
@@ -156,7 +144,7 @@ int main() {
     std::cout << "G8 = Ring Finger Grasp" << std::endl;
 
     int numSample = 10;
-
+    int windowSize = 2;
     //THIS GENERATES EMG SIGNALS BASED ON SAMPLE SIZE
     arma::mat emgSignalFist = generateEMGSignal(numSample, FIST);
     arma::mat emgSignalOpen = generateEMGSignal(numSample, OPEN);
@@ -165,6 +153,8 @@ int main() {
     std::cout << "EMG Signal generated for FIST gesture:\n" << emgSignalFist << std::endl;
     std::cout << "EMG Signal generated for OPEN gesture:\n" << emgSignalOpen << std::endl;
     std::cout << "EMG Signal generated for TWO FINGER PINCH gesture:\n" << emgSignalTwoFingerPinch << std::endl;
+
+
     
     return 0;
 }
