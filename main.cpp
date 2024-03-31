@@ -56,13 +56,6 @@ arma::vec highPassFilter(const arma::vec& signal, int windowSize) {
     return highPassFiltered;
 }
 
-// Muscle Activation Functions using a Sigmoid Function. (x) = 1/1+e^-x
-double muscleActivation(double time, double onsetTime, double peakActivation, double duration) {
-    //Sigmoid Function for activation curve.
-    double activation = peakActivation / (1 + exp(-(time - onsetTime)/ duration)); 
-    return activation;
-}
-
 //GESTURE CLASSES
 enum Gesture {
     FIST,
