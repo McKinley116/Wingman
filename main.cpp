@@ -105,7 +105,9 @@ arma::mat generateEMGSignal(int numSample, Gesture gesture) {
         break;
     case RING_FINGER_GRASP:
         emgSignal.randn();
-        break; 
+        break;
+    case NUM_GESTURES:
+        break;
     }
     return emgSignal;
 }
@@ -125,7 +127,8 @@ arma::mat generateEMGSignal(int numSample, Gesture gesture) {
 
 
 int main() {
- 
+
+    std::cout << "Loading Gestures....." << std::endl;
     std::cout << "Hand Gestures are classified as follows: " << std::endl; 
     std::cout << "G1 = Fist" << std::endl;   
     std::cout << "G2 = Open" << std::endl;
@@ -136,17 +139,31 @@ int main() {
     std::cout << "G7 = Thumbs Up" << std::endl;
     std::cout << "G8 = Ring Finger Grasp" << std::endl;
 
-    int numSample = 10;
-    int windowSize = 2;
+    std::cout << "Ready to generate EMGs....." << std::endl;
+    std::cout << "Please enter a sample size to generate an EMG signal for Wingman Gestures...." << std::endl;
+    int numSample;
+    std::cin >> numSample;
+    std::cout << "Please enter a window size....." << std::endl;
+    int windowSize;
+    std::cin >> windowSize;
     //THIS GENERATES EMG SIGNALS BASED ON SAMPLE SIZE
     arma::mat emgSignalFist = generateEMGSignal(numSample, FIST);
     arma::mat emgSignalOpen = generateEMGSignal(numSample, OPEN);
     arma::mat emgSignalTwoFingerPinch = generateEMGSignal(numSample, TWO_FINGER_PINCH);
+    arma::mat emgSignalThreeFingerPinch = generateEMGSignal(numSample, THREE_FINGER_PINCH);
+    arma::mat emgSignalPoint = generateEMGSignal(numSample, POINTING);
+    arma::mat emgSignalHook = generateEMGSignal(numSample, HOOK);
+    arma::mat emgSignalThumbs = generateEMGSignal(numSample, THUMBS_UP);
+    arma::mat emgSignalRing = generateEMGSignal(numSample, RING_FINGER_GRASP);
 
     std::cout << "EMG Signal generated for FIST gesture:\n" << emgSignalFist << std::endl;
     std::cout << "EMG Signal generated for OPEN gesture:\n" << emgSignalOpen << std::endl;
     std::cout << "EMG Signal generated for TWO FINGER PINCH gesture:\n" << emgSignalTwoFingerPinch << std::endl;
-
+    std::cout << "EMG Signal generated for THREE FINGER PINCH gesture:\n" << emgSignalThreeFingerPinch << std::endl;
+    std::cout << "EMG Signal generated for POINTING gesture:\n" << emgSignalPoint << std::endl;
+    std::cout << "EMG Signal generated for HOOK gesture:\n" << emgSignalHook << std::endl;
+    std::cout << "EMG Signal generated for THUMBS UP gesture:\n" << emgSignalThumbs << std::endl;
+    std::cout << "EMG Signal generated for RING FINGER GRASP gesture:\n" << emgSignalRing << std::endl;
 
     
     return 0;
