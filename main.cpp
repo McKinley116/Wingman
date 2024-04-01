@@ -116,6 +116,7 @@ int main() {
 
     std::cout << "Loading Gestures....." << std::endl;
     std::cout << "----------------------" << std::endl;
+    std::cout << std::endl;
     std::cout << "Hand Gestures are classified as follows: " << std::endl; 
     std::cout << "----------------------" << std::endl;
     std::cout << "G1 = Fist" << std::endl;   
@@ -125,8 +126,8 @@ int main() {
     std::cout << "G5 = Pointing" << std::endl;
     std::cout << "G6 = Hook" << std::endl;
     std::cout << "G7 = Thumbs Up" << std::endl;
-    std::cout << "G8 = Ring Finger Grasp" << std::endl;
-
+    std::cout << "G8 = Ring Finger Grasp" << std::endl; 
+    std::cout << std::endl;
     std::cout << "Ready to generate EMGs....." << std::endl;
     std::cout << "-----------------------" << std::endl;
     std::cout << "Please enter a sample size to generate an EMG signal for Wingman Gestures...." << std::endl;
@@ -135,8 +136,9 @@ int main() {
     std::cout << "Please enter a window size....." << std::endl;
     int windowSize;
     std::cin >> windowSize;
-
-//ALLOWS USER TO CHOOSE A GESTURE THEN GENERATE EMG...
+    std::cout << "------------------------" << std::endl;
+    std::cout << "Please choose a gesture...." << std::endl;
+//ALLOWS USER TO CHOOSE A GESTURE THEN GENERATE EMG...Using a switch statement allows us to efficiently map the user's input number to the appropriate gesture enum value. 
     int gestureNumber;
     std::cin >> gestureNumber;
     Gesture selectedGesture;
@@ -169,11 +171,22 @@ int main() {
             std::cerr << "Invalid gesture number!" << std::endl;
             return 1; // Exit with error code
     }
+     // Map gesture enum values to their corresponding names
+    std::map<Gesture, std::string> gestureNames = {
+        {FIST, "Fist"},
+        {OPEN, "Open"},
+        {TWO_FINGER_PINCH, "Two Finger Pinch"},
+        {THREE_FINGER_PINCH, "Three Finger Pinch"},
+        {POINTING, "Pointing"},
+        {HOOK, "Hook"},
+        {THUMBS_UP, "Thumbs Up"},
+        {RING_FINGER_GRASP, "Ring Finger Grasp"}
+    };
 
     //THIS GENERATES A EMG SIGNAL BASED ON USER INPUT OF SAMPLE SIZE, WINDOW SIZE, AND GESTURE SELECTION...
     arma::mat emgSignal = generateEMGSignal(numSample, selectedGesture);
 
-    std::cout << "EMG Signal generated for selected gesture:\n" << emgSignal << std::endl;
+    std::cout << "EMG Signal generated for " << gestureNames[selectedGesture] << " gesture:\n" << emgSignal << std::endl;
     
     return 0;
 }
