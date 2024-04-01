@@ -112,24 +112,12 @@ arma::mat generateEMGSignal(int numSample, Gesture gesture) {
     return emgSignal;
 }
 
-// VIRTUAL LIMB
-
-// SIMULATION ENVIRONMENT
-//The COMPONENTS part checks that OGRE was built the way we need it
-//The CONFIG flag makes sure we get OGRE instead of OGRE-next
-//find_package(OGRE REQUIRED COMPONENTS Bites CONFIG)
- 
-//add the source files as usual
-//add_executable(0_Bootstrap Bootstrap.cpp)
- 
-//this also sets the includes and pulls third party dependencies
-//target_link_libraries(0_Bootstrap OgreBites)
-
-
 int main() {
 
     std::cout << "Loading Gestures....." << std::endl;
+    std::cout << "----------------------" << std::endl;
     std::cout << "Hand Gestures are classified as follows: " << std::endl; 
+    std::cout << "----------------------" << std::endl;
     std::cout << "G1 = Fist" << std::endl;   
     std::cout << "G2 = Open" << std::endl;
     std::cout << "G3 = Two Finger Pinch" << std::endl;
@@ -140,31 +128,52 @@ int main() {
     std::cout << "G8 = Ring Finger Grasp" << std::endl;
 
     std::cout << "Ready to generate EMGs....." << std::endl;
+    std::cout << "-----------------------" << std::endl;
     std::cout << "Please enter a sample size to generate an EMG signal for Wingman Gestures...." << std::endl;
     int numSample;
     std::cin >> numSample;
     std::cout << "Please enter a window size....." << std::endl;
     int windowSize;
     std::cin >> windowSize;
-    //THIS GENERATES EMG SIGNALS BASED ON SAMPLE SIZE
-    arma::mat emgSignalFist = generateEMGSignal(numSample, FIST);
-    arma::mat emgSignalOpen = generateEMGSignal(numSample, OPEN);
-    arma::mat emgSignalTwoFingerPinch = generateEMGSignal(numSample, TWO_FINGER_PINCH);
-    arma::mat emgSignalThreeFingerPinch = generateEMGSignal(numSample, THREE_FINGER_PINCH);
-    arma::mat emgSignalPoint = generateEMGSignal(numSample, POINTING);
-    arma::mat emgSignalHook = generateEMGSignal(numSample, HOOK);
-    arma::mat emgSignalThumbs = generateEMGSignal(numSample, THUMBS_UP);
-    arma::mat emgSignalRing = generateEMGSignal(numSample, RING_FINGER_GRASP);
 
-    std::cout << "EMG Signal generated for FIST gesture:\n" << emgSignalFist << std::endl;
-    std::cout << "EMG Signal generated for OPEN gesture:\n" << emgSignalOpen << std::endl;
-    std::cout << "EMG Signal generated for TWO FINGER PINCH gesture:\n" << emgSignalTwoFingerPinch << std::endl;
-    std::cout << "EMG Signal generated for THREE FINGER PINCH gesture:\n" << emgSignalThreeFingerPinch << std::endl;
-    std::cout << "EMG Signal generated for POINTING gesture:\n" << emgSignalPoint << std::endl;
-    std::cout << "EMG Signal generated for HOOK gesture:\n" << emgSignalHook << std::endl;
-    std::cout << "EMG Signal generated for THUMBS UP gesture:\n" << emgSignalThumbs << std::endl;
-    std::cout << "EMG Signal generated for RING FINGER GRASP gesture:\n" << emgSignalRing << std::endl;
+//ALLOWS USER TO CHOOSE A GESTURE THEN GENERATE EMG...
+    int gestureNumber;
+    std::cin >> gestureNumber;
+    Gesture selectedGesture;
+    switch(gestureNumber) {
+        case 1:
+            selectedGesture = FIST;
+            break;
+        case 2:
+            selectedGesture = OPEN;
+            break;
+        case 3:
+            selectedGesture = TWO_FINGER_PINCH;
+            break;
+        case 4:
+            selectedGesture = THREE_FINGER_PINCH;
+            break;
+        case 5:
+            selectedGesture = POINTING;
+            break;
+        case 6:
+            selectedGesture = HOOK;
+            break;
+        case 7:
+            selectedGesture = THUMBS_UP;
+            break;
+        case 8:
+            selectedGesture = RING_FINGER_GRASP;
+            break;
+        default:
+            std::cerr << "Invalid gesture number!" << std::endl;
+            return 1; // Exit with error code
+    }
 
+    //THIS GENERATES A EMG SIGNAL BASED ON USER INPUT OF SAMPLE SIZE, WINDOW SIZE, AND GESTURE SELECTION...
+    arma::mat emgSignal = generateEMGSignal(numSample, selectedGesture);
+
+    std::cout << "EMG Signal generated for selected gesture:\n" << emgSignal << std::endl;
     
     return 0;
 }
