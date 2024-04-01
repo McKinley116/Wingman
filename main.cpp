@@ -189,7 +189,7 @@ int main() {
     std::cout << "EMG Signal generated for " << gestureNames[selectedGesture] << " gesture:\n" << emgSignal << std::endl;
     std::cout << "Filtering EMG signal..." << std::endl;
     //FILTERS THE USERS GENERATED EMG SIGNALS...
-    double sampleRate = 10;
+    double sampleRate = 10; // If sample rate is too high, output will onyl be zeros..
     double humFrequency = 60;
     double bandwidth = 2;
     arma::vec filteredSignal = notchFilter(emgSignal.col(0), sampleRate, humFrequency, bandwidth);
