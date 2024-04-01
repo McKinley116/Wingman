@@ -77,7 +77,7 @@ struct GestureData {
 
 //GENERATES EMG SIGNAL (uses a matrix(MAT))
 arma::mat generateEMGSignal(int numSample, Gesture gesture) {
-    double mean = 0.0;
+    double mean = 1.0;
     double stddev = 1.0;
 
     arma::mat emgSignal(numSample, 1, arma::fill::zeros);
@@ -189,7 +189,7 @@ int main() {
     std::cout << "EMG Signal generated for " << gestureNames[selectedGesture] << " gesture:\n" << emgSignal << std::endl;
     std::cout << "Filtering EMG signal..." << std::endl;
     //FILTERS THE USERS GENERATED EMG SIGNALS...
-    double sampleRate = 1000;
+    double sampleRate = 10;
     double humFrequency = 60;
     double bandwidth = 2;
     arma::vec filteredSignal = notchFilter(emgSignal.col(0), sampleRate, humFrequency, bandwidth);
