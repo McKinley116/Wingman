@@ -112,6 +112,17 @@ arma::mat generateEMGSignal(int numSample, Gesture gesture) {
     return emgSignal;
 }
 
+//Compute Root Mean Square of generate signal..
+double computeRMS(){
+
+}
+
+//Computes Mean Absolute Value of signal...
+double computeMAV(){}
+
+//Extract features from filtered EMG..
+arma::rowvec extractFeatures(){}
+
 int main() {
 
     std::cout << "Loading Gestures....." << std::endl;
