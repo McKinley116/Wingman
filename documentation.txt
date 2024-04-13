@@ -40,7 +40,7 @@ To get started with the Prosthetic Limb Control Software, follow these steps:
 Usage:
 Wingman can be used for various applications, including:
 - Research and development of prosthetic limb control systems.
-- Rehabilitation and therapy for individuals with limb disabilities.
+- Rehabilitation and therapy for individulals with limb disabilities.
 - Educational purposes in computer science, biomedical engineering, and related fields.
 
 Modules:
