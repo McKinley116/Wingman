@@ -2,6 +2,7 @@
 #include <initializer_list>
 #include <iostream>
 #include <cmath>
+#include <unistd.h>
 #include <vector>
 #include <armadillo>
 
@@ -113,33 +114,6 @@ arma::mat generateEMGSignal(int numSample, Gesture gesture) {
     return emgSignal;
 }
 
-//Compute Root Mean Square of generate signal. RMS measures the power or energy in a signal. 
-double computeRMS(const std::vector<double>& signal){
-    double sumOfSquares = 0.0;
-    for (double value : signal) {
-    sumOfSquares += std::abs(value);
-    }
-    return std::sqrt(sumOfSquares / signal.size());
-}
-
-//Computes Mean Absolute Value of signal...
-double computeMAV(const std::vector<double>& signal){
-   double sumOfAbs = 0.0; 
-    for (double value : signal) {
-    sumOfAbs += std::abs(value);
-    }
-    return sumOfAbs / signal.size();
-}
-
-//Extract features from filtered EMG..
-std::vector<double> extractFeatures(const std::vector<double>& filteredSignal) {
-    std::vector<double> features;
-    double rmsValue = computeRMS(filteredSignal);
-    features.push_back(rmsValue);
-    double mavValue = computeMAV(filteredSignal);
-    features.push_back(mavValue);
-    return features;
-}
 
 int main() {
 
@@ -199,8 +173,8 @@ int main() {
         default:
             std::cerr << "Invalid gesture number!" << std::endl;
             return 1; // Exit with error code
-    }arma::rowvec extractFeatures(){}
-     // Map gesture enum values to their corresponding names
+    }
+       // Map gesture enum values to their corresponding names
     std::map<Gesture, std::string> gestureNames = {
         {FIST, "Fist"},
         {OPEN, "Open"},
@@ -214,7 +188,7 @@ int main() {
 
     //THIS GENERATES A EMG SIGNAL BASED ON USER INPUT OF SAMPLE SIZE, WINDOW SIZE, AND GESTURE SELECTION...
     arma::mat emgSignal = generateEMGSignal(numSample, selectedGesture);
-
+    
     std::cout << "EMG Signal generated for " << gestureNames[selectedGesture] << " gesture:\n" << emgSignal << std::endl;
     std::cout << "Filtering EMG signal..." << std::endl;
     //FILTERS THE USERS GENERATED EMG SIGNALS...
@@ -226,12 +200,15 @@ int main() {
     filteredSignal = highPassFilter(filteredSignal, windowSize);
     std::cout << "Filtered EMG signal for " << gestureNames[selectedGesture] << " gesture\n" << filteredSignal << std::endl;
     std::cout << "Ready to extract features..." << std::endl;
-    std::vector<double>featureVector = extractFeatures(filteredSignal);
+    double rms = arma::norm(filteredSignal, 3) / std::sqrt(filteredSignal.size());
+    double mav = arma::mean(arma::abs(filteredSignal));
+    std::vector<double> featureVector;
+    featureVector.push_back(rms);
+    featureVector.push_back(mav);
     std::cout << "Extracted Features...." << std::endl;
-    std::cout << "RMS: " << std::endl;
-    std::cout << "MAV: " << std::endl;
+    std::cout << "RMS: " << rms <<  std::endl;
+    std::cout << "MAV: " << mav <<  std::endl;
     
     return 0;
-}
-
+  }
 
