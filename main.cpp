@@ -1,4 +1,5 @@
 #include <csignal>
+#include <functional>
 #include <initializer_list>
 #include <iostream>
 #include <cmath>
@@ -115,6 +116,7 @@ arma::mat generateEMGSignal(int numSample, Gesture gesture) {
     return emgSignal;
 }
 
+//start of decision tree..
 struct TreeNode{
     int featureIndex;
     double threshold;
@@ -127,6 +129,28 @@ TreeNode(int featureIndex, double threshold, int predictedClass) : featureIndex(
 
 };
 
+//count frequency of class lable in a vector..
+std::vector<int> countClassFrequency(const std::vector<int>& y, int numClasses){
+std::vector<int> classCounts(numClasses, 0);
+    for (int label : y) {
+    classCounts[label]++;
+    }
+    return classCounts;
+}
+
+//finds majority of class label in a vector..
+int majorityClass(const std::vector<int>& y){
+    std::vector<int> classCounts = countClassFrequency(y);
+    auto maxElementIter = std::max_element(classCounts.begin(), classCounts.end());
+    return std::distance(classCounts.begin(), maxElementIter);
+}
+
+//recursively builds decision tree..
+TreeNode* buildDecisionTree(const std::vector<std::vector<double>>& X, const std::vector<int>& y){
+    if (__adjacent_find(y.begin(), y.end(), std::not_equal_to<int>()) == y.end()) {
+    return new TreeNode(-1, 0.0, y[0]);
+  }
+}
 
 
 
