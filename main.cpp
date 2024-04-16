@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <vector>
 #include <armadillo>
+#include <algorithm>
 
 // Notch filter to filter out powerline frequency, filters out 50HZ and 60HZ.
 arma::vec notchFilter(const arma::vec& signal, double sampleRate, double humFrequency, double bandwidth) {
@@ -114,6 +115,20 @@ arma::mat generateEMGSignal(int numSample, Gesture gesture) {
     return emgSignal;
 }
 
+struct TreeNode{
+    int featureIndex;
+    double threshold;
+    int predictedClass;
+    TreeNode * leftChild;
+    TreeNode * rightChild;
+
+
+TreeNode(int featureIndex, double threshold, int predictedClass) : featureIndex(featureIndex), threshold(threshold), predictedClass(predictedClass), leftChild(nullptr), rightChild(nullptr){}
+
+};
+
+
+
 
 int main() {
 
@@ -200,8 +215,8 @@ int main() {
     filteredSignal = highPassFilter(filteredSignal, windowSize);
     std::cout << "Filtered EMG signal for " << gestureNames[selectedGesture] << " gesture\n" << filteredSignal << std::endl;
     std::cout << "Ready to extract features..." << std::endl;
-    double rms = arma::norm(filteredSignal, 3) / std::sqrt(filteredSignal.size());
-    double mav = arma::mean(arma::abs(filteredSignal));
+    double rms = arma::norm(filteredSignal, 3) / std::sqrt(filteredSignal.size()); // extracts features of the emg signal..
+    double mav = arma::mean(arma::abs(filteredSignal)); // extracts features of the emg signal..
     std::vector<double> featureVector;
     featureVector.push_back(rms);
     featureVector.push_back(mav);
