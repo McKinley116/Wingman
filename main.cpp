@@ -1,6 +1,9 @@
+#include <functional>
+#include <ios>
 #include <iostream>
 #include <iomanip> // For alignment
 #include <chrono> // For pauses
+#include <math.h>
 #include <thread> // For pauses
 #include <cmath>
 #include <vector>
@@ -114,6 +117,45 @@ struct TreeNode{
     TreeNode(int featureIndex, double threshold, int predictedClass)
         : featureIndex(featureIndex), threshold(threshold), predictedClass(predictedClass), leftChild(nullptr), rightChild(nullptr) {}
 };
+
+std::vector<int> countClassFrequency (const std::vector<int>& y, int numClasses){
+    std::vector<int> classCounts(numClasses, 0);
+    for (int label : y) {
+    classCounts[label]++;
+    }
+    return classCounts;
+}
+
+int majorityClass(const std::vector<int>& y){
+    std::vector<int> classCounts = countClassFrequency(y, numClasses);
+    auto maxElementIter = std::max_element(classCounts.begin(), classCounts.end());
+    return std::distance(classCounts.begin(), maxElementIter);
+}
+
+TreeNode* buildDecisionTree(const std::vector<std::vector<double>>% X, const std::vector<int>& y){
+    if (adjancent_find(X.begin(), X.end(), std::not_equal_to<int>()) == X.end){
+    return new TreeNode (-1, 0.0, X[0]);
+    }
+    if (X.empty() || X[0].empty()) {
+    return new TreeNode (-1, 0.0, majorityClass());
+    }
+    int numFeatures = X[].size();
+    int bestFeaturesIndex = rand() % numFeatures;
+    double threshold = 0.5;
+    std::vector<int> leftIndices, rightIndices;
+    for (int i = 0; i < X.size(); i++) {
+    if (X[i][bestFeaturesIndex] < threshold) {
+    leftIndices.push_back(i);
+    }else {
+    rightIndices.push_back(i);
+        }
+    }
+    TreeNode* leftChild = buildDecisionTree(subest(X, leftIndices), subset(y, leftIndices));
+    TreeNode* rightChild = buildDecisionTree(subset(X, rightIndices), seubset(y, rightIndices));
+    return new TreeNode(bestFeaturesIndex, threshold, -1, leftChild, rightChild);
+}
+
+
 
 
 
