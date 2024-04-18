@@ -84,6 +84,62 @@ std::vector<double> generateEMGSignal(int numSample, Gesture gesture) {
     return emgSignal;
 }
 
+// Function to compute the Root Mean Square (RMS) of a signal
+double computeRMS(const std::vector<double>& signal) {
+    double sumOfSquares = 0.0;
+    for (double value : signal) {
+        sumOfSquares += value * value;
+    }
+    return std::sqrt(sumOfSquares / signal.size());
+}
+
+// Function to compute the Mean Absolute Value (MAV) of a signal
+double computeMAV(const std::vector<double>& signal) {
+    double sumOfAbs = 0.0;
+    for (double value : signal) {
+        sumOfAbs += std::abs(value);
+    }
+    return sumOfAbs / signal.size();
+}
+
+//start of decision tree..
+struct TreeNode{
+    int featureIndex;
+    double threshold;
+    int predictedClass;
+    TreeNode * leftChild;
+    TreeNode * rightChild;
+
+
+TreeNode(int featureIndex, double threshold, int predictedClass) : featureIndex(featureIndex), threshold(threshold), predictedClass(predictedClass), leftChild(nullptr), rightChild(nullptr){}
+
+};
+
+//count frequency of class lable in a vector..
+std::vector<int> countClassFrequency(const std::vector<int>& y, int numClasses){
+std::vector<int> classCounts(numClasses, 0);
+    for (int label : y) {
+    classCounts[label]++;
+    }
+    return classCounts;
+}
+
+//finds majority of class label in a vector..
+int majorityClass(const std::vector<int>& y){
+    std::vector<int> classCounts = countClassFrequency(y);
+    auto maxElementIter = std::max_element(classCounts.begin(), classCounts.end());
+    return std::distance(classCounts.begin(), maxElementIter);
+}
+
+//recursively builds decision tree..
+TreeNode* buildDecisionTree(const std::vector<std::vector<double>>& X, const std::vector<int>& y){
+    if (__adjacent_find(y.begin(), y.end(), std::not_equal_to<int>()) == y.end()) {
+    return new TreeNode(-1, 0.0, y[0]);
+  }
+}
+
+
+
 int main() {
     using namespace std::this_thread;
     using namespace std::chrono;
@@ -227,5 +283,19 @@ std::vector<double> emgSignal = generateEMGSignal(numSample, selectedGesture);
     std::cout << val << " " << std::endl;
     }
     std::cout << std::endl;
+    std::vector<double> extractedFilter = filteredSignal;
+    std::cout << "Ready to extract features..." << std::endl;
+    
+    // Compute RMS and MAV
+    double rms = computeRMS(extractedFilter);
+    double mav = computeMAV(extractedFilter);
+
+    std::vector<double> featureVector;
+    featureVector.push_back(rms);
+    featureVector.push_back(mav);
+
+    std::cout << "Extracted Features...." << std::endl;
+    std::cout << "RMS: " << rms << std::endl;
+    std::cout << "MAV: " << mav << std::endl;
     return 0;
 }
