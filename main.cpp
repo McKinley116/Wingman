@@ -7,6 +7,8 @@
 #include <map>
 #include <cstdlib> // For std::rand() and std::srand()
 #include <ctime> // For srand(time(x)
+#include <algorithm> // for decision tree
+
 
 // Notch filter to filter out powerline frequency, filters out 50HZ and 60HZ.
 std::vector<double> notchFilter(const std::vector<double>& signal, double sampleRate, double humFrequency, double bandwidth) {
@@ -109,34 +111,9 @@ struct TreeNode{
     int predictedClass;
     TreeNode * leftChild;
     TreeNode * rightChild;
-
-
-TreeNode(int featureIndex, double threshold, int predictedClass) : featureIndex(featureIndex), threshold(threshold), predictedClass(predictedClass), leftChild(nullptr), rightChild(nullptr){}
-
+    TreeNode(int featureIndex, double threshold, int predictedClass)
+        : featureIndex(featureIndex), threshold(threshold), predictedClass(predictedClass), leftChild(nullptr), rightChild(nullptr) {}
 };
-
-//count frequency of class lable in a vector..
-std::vector<int> countClassFrequency(const std::vector<int>& y, int numClasses){
-std::vector<int> classCounts(numClasses, 0);
-    for (int label : y) {
-    classCounts[label]++;
-    }
-    return classCounts;
-}
-
-//finds majority of class label in a vector..
-int majorityClass(const std::vector<int>& y){
-    std::vector<int> classCounts = countClassFrequency(y);
-    auto maxElementIter = std::max_element(classCounts.begin(), classCounts.end());
-    return std::distance(classCounts.begin(), maxElementIter);
-}
-
-//recursively builds decision tree..
-TreeNode* buildDecisionTree(const std::vector<std::vector<double>>& X, const std::vector<int>& y){
-    if (__adjacent_find(y.begin(), y.end(), std::not_equal_to<int>()) == y.end()) {
-    return new TreeNode(-1, 0.0, y[0]);
-  }
-}
 
 
 
