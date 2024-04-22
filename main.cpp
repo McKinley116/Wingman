@@ -77,15 +77,33 @@ struct GestureData {
     std::vector<double> emgSignal;
 };
 
-//GENERATES EMG SIGNAL (uses a rand(s))
+//GENERATES EMG SIGNAL (commented out /*rand(s)*/)
 std::vector<double> generateEMGSignal(int numSample, Gesture gesture) {
+    using namespace std::this_thread;
+    using namespace std::chrono;
     std::vector<double> emgSignal(numSample);
+    std::cout << "As we wait for our UI to become available we must make due.\n\n";
+    sleep_until(system_clock::now() + milliseconds(250));
+    std::cout << "Please enter how many cycles of motion occur: ";
+    double cycles;
+    std::cin >> cycles;
+    sleep_until(system_clock::now() + milliseconds(250));
+    std::cout << "Please enter how long it took you to exert this motion in seconds: ";
+    double seconds; 
+    std::cin >> seconds;
+    for (int x = 0; x < numSample; x++){
+      emgSignal[x] = cycles / seconds;
+    }
+    // This allows us to calculate and get stronger values of hz. If they move faster or longer it takes a higher power level.
+    
+    /*
     std::srand(time(0));
     for (int i = 0; i < numSample; ++i) {
     double Randomnum = static_cast<double>(rand()) / RAND_MAX;
     double NumSmall = (1 - 0.0001) * Randomnum + 0.0001;
     emgSignal[i] = NumSmall;
     }
+    */
     return emgSignal;
 }
 
