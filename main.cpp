@@ -106,7 +106,7 @@ std::vector<double> generateEMGSignal(int numSample, Gesture gesture) {
     */
     return emgSignal;
 }
-
+/*
 // Function to compute the Root Mean Square (RMS) of a signal
 double computeRMS(const std::vector<double>& signal) {
     double sumOfSquares = 0.0;
@@ -172,7 +172,7 @@ TreeNode* buildDecisionTree(const std::vector<std::vector<double>>% X, const std
     TreeNode* rightChild = buildDecisionTree(subset(X, rightIndices), seubset(y, rightIndices));
     return new TreeNode(bestFeaturesIndex, threshold, -1, leftChild, rightChild);
 }
-
+*/
 
 
 
@@ -322,7 +322,7 @@ std::vector<double> emgSignal = generateEMGSignal(numSample, selectedGesture);
     std::cout << std::endl;
     std::vector<double> extractedFilter = filteredSignal;
     std::cout << "Ready to extract features..." << std::endl;
-    
+    /*
     // Compute RMS and MAV
     double rms = computeRMS(extractedFilter);
     double mav = computeMAV(extractedFilter);
@@ -334,5 +334,6 @@ std::vector<double> emgSignal = generateEMGSignal(numSample, selectedGesture);
     std::cout << "Extracted Features...." << std::endl;
     std::cout << "RMS: " << rms << std::endl;
     std::cout << "MAV: " << mav << std::endl;
+    */
     return 0;
 }
