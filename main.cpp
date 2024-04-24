@@ -91,8 +91,14 @@ std::vector<double> generateEMGSignal(int numSample, Gesture gesture) {
     std::cout << "Please enter how long it took you to exert this motion in seconds: ";
     double seconds; 
     std::cin >> seconds;
+    double motionFrequency = cycles / seconds;
+    double timePeriod = 1.0 / numSample;
     for (int x = 0; x < numSample; x++){
-      emgSignal[x] = cycles / seconds;
+      double powerlineInteference = 50;
+      double time = x * timePeriod;
+      double emgWithoutInterference = sin(2 * M_PI * motionFrequency * time);
+      double powerlineInterference = sin(2 * M_PI * powerlineInterference * time);
+      emgSignal[x] = emgWithoutInterference + powerlineInterference;
     }
     // This allows us to calculate and get stronger values of hz. If they move faster or longer it takes a higher power level.
     
