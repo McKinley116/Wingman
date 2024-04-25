@@ -1,6 +1,6 @@
-Wingman ( Veteran Inspired)
 
-# Wingman - Gesture Recognition System
+
+# Wingman - Veteran Inspired 
 
 ## Project Overview
 
