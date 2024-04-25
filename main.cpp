@@ -13,7 +13,7 @@
 
 
 
-// Notch filter to filter out powerline frequency, filters out 50HZ and 60HZ.
+/*// Notch filter to filter out powerline frequency, filters out 50HZ and 60HZ.
 std::vector<double> notchFilter(const std::vector<double>& signal, double sampleRate, double humFrequency, double bandwidth) {
 // Compute the frequency response of the notch filter
     std::vector<double> frequencies(signal.size());
@@ -58,7 +58,25 @@ std::vector<double> highPassFilter(const std::vector<double>& signal, int window
     highPassFiltered[i] = signal[i] - lowPassFiltered[i];
     }
     return highPassFiltered;
+}*/
+
+//This is an algorithm I created to scramble the signals. It adds anything between 1-50 hz to the value. IDK if you want to use it we don't need to.
+std::vector <double> distortion(std::vector <double> signals, int max, int num){
+  std::srand(time(0));
+  std::vector <double> distorted(signals.size());
+  for (int i = 0; i < signals.size(); i++){
+    distorted[i] = signals[i];
+
+    //EMF is the Electro Magnetic Field interference. It is anywhere between 1-50 Hz so by giving a random value added to the original signal we can get a truly distorted signal.
+    double EMF = static_cast<double>(rand()) / RAND_MAX;
+    EMF = max * EMF;
+    distorted[i] = distorted[i] + EMF;
+    std::cout << distorted[i];
+  }
+  return distorted;
 }
+
+
 //GESTURE CLASSES
 enum Gesture {
     FIST,
@@ -91,7 +109,12 @@ std::vector<double> generateEMGSignal(int numSample, Gesture gesture) {
     std::cout << "Please enter how long it took you to exert this motion in seconds: ";
     double seconds; 
     std::cin >> seconds;
-    double motionFrequency = cycles / seconds;
+    for (int x = 0; x < emgSignal.size(); x++){
+      emgSignal[x] = cycles / seconds;
+    }
+    emgSignal = distortion(emgSignal, 50, numSample);
+    
+    /*double motionFrequency = cycles / seconds;
     double timePeriod = 1.0 / numSample;
     for (int x = 0; x < numSample; x++){
       double powerlineInteference = 50;
@@ -99,7 +122,7 @@ std::vector<double> generateEMGSignal(int numSample, Gesture gesture) {
       double emgWithoutInterference = sin(2 * M_PI * motionFrequency * time);
       double powerlineInterference = sin(2 * M_PI * powerlineInterference * time);
       emgSignal[x] = emgWithoutInterference + powerlineInterference;
-    }
+    }*/
     // This allows us to calculate and get stronger values of hz. If they move faster or longer it takes a higher power level.
     
     /*
