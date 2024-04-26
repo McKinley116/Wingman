@@ -264,7 +264,7 @@ std::vector<double> emgSignal = generateEMGSignal(numSample, selectedGesture);
 }
 
 //FILTERS THE USERS GENERATED EMG SIGNALS...
-    double sampleRate = 10; // If sample rate is too high, output will only be zeros..
+  /*  double sampleRate = 10; // If sample rate is too high, output will only be zeros..
     double humFrequency = 60;
     double bandwidth = 2;
     double windowSize = 3;
@@ -285,7 +285,7 @@ std::vector<double> emgSignal = generateEMGSignal(numSample, selectedGesture);
 }
 
 
-/*
+
 // Function to compute the Root Mean Square (RMS) of a signal
 double computeRMS(const std::vector<double>& signal) {
     double sumOfSquares = 0.0;
