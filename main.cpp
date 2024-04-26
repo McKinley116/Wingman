@@ -1,6 +1,9 @@
 #include <functional>
 #include <ios>
 #include <iostream>
+#include "mainwindow.h"
+#include <QApplication>
+#include <fstream>
 #include <iomanip> // For alignment
 #include <chrono> // For pauses
 #include <math.h>
@@ -112,26 +115,6 @@ std::vector<double> generateEMGSignal(int numSample, Gesture gesture) {
       emgSignal[x] = cycles / seconds;
     }
     emgSignal = distortion(emgSignal, 50, numSample);
-    
-    /*double motionFrequency = cycles / seconds;
-    double timePeriod = 1.0 / numSample;
-    for (int x = 0; x < numSample; x++){
-      double powerlineInteference = 50;
-      double time = x * timePeriod;
-      double emgWithoutInterference = sin(2 * M_PI * motionFrequency * time);
-      double powerlineInterference = sin(2 * M_PI * powerlineInterference * time);
-      emgSignal[x] = emgWithoutInterference + powerlineInterference;
-    }*/
-    // This allows us to calculate and get stronger values of hz. If they move faster or longer it takes a higher power level.
-    
-    /*
-    std::srand(time(0));
-    for (int i = 0; i < numSample; ++i) {
-    double Randomnum = static_cast<double>(rand()) / RAND_MAX;
-    double NumSmall = (1 - 0.0001) * Randomnum + 0.0001;
-    emgSignal[i] = NumSmall;
-    }
-    */
     return emgSignal;
 }
 
@@ -169,10 +152,6 @@ int main() {
     std::cout << "Please enter a sample size to generate an EMG signal for Wingman Gestures...." << std::endl;
     int numSample;
     std::cin >> numSample;
-   /* sleep_until(system_clock::now() + milliseconds(500));
-    std::cout << "Please enter a window size....." << std::endl;
-    int windowSize;
-    std::cin >> windowSize;*/
     sleep_until(system_clock::now() + milliseconds(500));
     std::cout << "------------------------" << std::endl;
     std::cout << "Please choose a gesture...." << std::endl;
@@ -282,89 +261,4 @@ std::vector<double> emgSignal = generateEMGSignal(numSample, selectedGesture);
     std::vector<double> extractedFilter = filteredSignal;
     std::cout << "Ready to extract features..." << std::endl;
      return 0;
-}
-
-
-
-// Function to compute the Root Mean Square (RMS) of a signal
-double computeRMS(const std::vector<double>& signal) {
-    double sumOfSquares = 0.0;
-    for (double value : signal) {
-        sumOfSquares += value * value;
-    }
-    return std::sqrt(sumOfSquares / signal.size());
-}
-
-// Function to compute the Mean Absolute Value (MAV) of a signal
-double computeMAV(const std::vector<double>& signal) {
-    double sumOfAbs = 0.0;
-    for (double value : signal) {
-        sumOfAbs += std::abs(value);
-    }
-    return sumOfAbs / signal.size();
-}
-
-//start of decision tree..
-struct TreeNode{
-    int featureIndex;
-    double threshold;
-    int predictedClass;
-    TreeNode * leftChild;
-    TreeNode * rightChild;
-    TreeNode(int featureIndex, double threshold, int predictedClass)
-        : featureIndex(featureIndex), threshold(threshold), predictedClass(predictedClass), leftChild(nullptr), rightChild(nullptr) {}
-};
-
-std::vector<int> countClassFrequency (const std::vector<int>& y, int numClasses){
-    std::vector<int> classCounts(numClasses, 0);
-    for (int label : y) {
-    classCounts[label]++;
-    }
-    return classCounts;
-}
-
-int majorityClass(const std::vector<int>& y){
-    std::vector<int> classCounts = countClassFrequency(y, numClasses);
-    auto maxElementIter = std::max_element(classCounts.begin(), classCounts.end());
-    return std::distance(classCounts.begin(), maxElementIter);
-}
-
-TreeNode* buildDecisionTree(const std::vector<std::vector<double>>% X, const std::vector<int>& y){
-    if (adjancent_find(X.begin(), X.end(), std::not_equal_to<int>()) == X.end){
-    return new TreeNode (-1, 0.0, X[0]);
-    }
-    if (X.empty() || X[0].empty()) {
-    return new TreeNode (-1, 0.0, majorityClass());
-    }
-    int numFeatures = X[].size();
-    int bestFeaturesIndex = rand() % numFeatures;
-    double threshold = 0.5;
-    std::vector<int> leftIndices, rightIndices;
-    for (int i = 0; i < X.size(); i++) {
-    if (X[i][bestFeaturesIndex] < threshold) {
-    leftIndices.push_back(i);
-    }else {
-    rightIndices.push_back(i);
-        }
-    }
-    TreeNode* leftChild = buildDecisionTree(subest(X, leftIndices), subset(y, leftIndices));
-    TreeNode* rightChild = buildDecisionTree(subset(X, rightIndices), seubset(y, rightIndices));
-    return new TreeNode(bestFeaturesIndex, threshold, -1, leftChild, rightChild);
-}
-*/
-
-   /*
-    // Compute RMS and MAV
-    double rms = computeRMS(extractedFilter);
-    double mav = computeMAV(extractedFilter);
-
-    std::vector<double> featureVector;
-    featureVector.push_back(rms);
-    featureVector.push_back(mav);
-
-    std::cout << "Extracted Features...." << std::endl;
-    std::cout << "RMS: " << rms << std::endl;
-    std::cout << "MAV: " << mav << std::endl;
-    */
-
 }
