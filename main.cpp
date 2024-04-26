@@ -71,7 +71,6 @@ std::vector <double> distortion(std::vector <double> signals, int max, int num){
     double EMF = static_cast<double>(rand()) / RAND_MAX;
     EMF = max * EMF;
     distorted[i] = distorted[i] + EMF;
-    std::cout << distorted[i];
   }
   return distorted;
 }
