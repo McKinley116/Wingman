@@ -64,15 +64,16 @@ std::vector<double> highPassFilter(const std::vector<double>& signal, int window
 }*/
 
 //This is an algorithm I created to scramble the signals. It adds anything between 1-50 hz to the value. IDK if you want to use it we don't need to.
-std::vector <double> distortion(std::vector <double> signals, int max, int num){
-  std::srand(time(0));
+std::vector <double> distortion(std::vector <double> signals, int max, int min, std::vector <double>& timescan){
   std::vector <double> distorted(signals.size());
+  std::srand(time(0));
   for (int i = 0; i < signals.size(); i++){
     distorted[i] = signals[i];
 
     //EMF is the Electro Magnetic Field interference. It is anywhere between 1-50 Hz so by giving a random value added to the original signal we can get a truly distorted signal.
     double EMF = static_cast<double>(rand()) / RAND_MAX;
-    EMF = max * EMF;
+    EMF = min + EMF * (max + min);
+    timescan[i] = EMF;
     distorted[i] = distorted[i] + EMF;
   }
   return distorted;
@@ -98,7 +99,7 @@ struct GestureData {
 };
 
 //GENERATES EMG SIGNAL (commented out /*rand(s)*/)
-std::vector<double> generateEMGSignal(int numSample, Gesture gesture) {
+std::vector<double> generateEMGSignal(int numSample, Gesture gesture, std::vector <double>& timescan) {
     using namespace std::this_thread;
     using namespace std::chrono;
     std::vector<double> emgSignal(numSample);
@@ -114,16 +115,40 @@ std::vector<double> generateEMGSignal(int numSample, Gesture gesture) {
     for (int x = 0; x < emgSignal.size(); x++){
       emgSignal[x] = cycles / seconds;
     }
-    emgSignal = distortion(emgSignal, 50, numSample);
+    emgSignal = distortion(emgSignal, 50, 1, timescan);
     return emgSignal;
 }
 
 int main() {
+    std::cout << "\033[38;2;0;250;204m";
     using namespace std::this_thread;
     using namespace std::chrono;
-    std::cout << "Loading Gestures....." << std::endl;
-    std::cout << "----------------------" << std::endl;
-    std::cout << std::endl;
+    for (int x = 0; x < 3; x++){
+      std::cout << "Loading" << std::endl;
+    // Move the cursor up one line
+      std::cout << "\033[F";
+    // Clear the line I don't know why these do what they do...
+      std::cout << "\033[K";
+      sleep_until(system_clock::now() + milliseconds(500));
+      std::cout << "Loading." << std::endl;
+    // Move the cursor up one line
+      std::cout << "\033[F";
+    // Clear the line
+      std::cout << "\033[K";
+      sleep_until(system_clock::now() + milliseconds(500));
+      std::cout << "Loading.." << std::endl;
+    // Move the cursor up one line
+      std::cout << "\033[F";
+    // Clear the line
+      std::cout << "\033[K";
+      sleep_until(system_clock::now() + milliseconds(500));
+      std::cout << "Loading..." << std::endl;
+      sleep_until(system_clock::now() + milliseconds(500));
+    // Move the cursor up one line
+      std::cout << "\033[F";
+    // Clear the line
+      std::cout << "\033[K";
+    }
     sleep_until(system_clock::now() + seconds(1));
     std::cout << "Hand Gestures are classified as follows: " << std::endl;
     std::cout << "----------------------" << std::endl;
@@ -149,9 +174,18 @@ int main() {
     std::cout << "-----------------------" << std::endl;
     sleep_until(system_clock::now() + milliseconds(500));
 
-    std::cout << "Please enter a sample size to generate an EMG signal for Wingman Gestures...." << std::endl;
+    std::cout << "Please enter a sample size to generate an EMG signal for ";
+    std::cout << "\033[1m";
+    std::cout << "Wingman";
+    std::cout << "\033[0m";
+    std::cout << "\033[38;2;0;250;204m";
+    std::cout << " Gestures...." << std::endl;
+
     int numSample;
     std::cin >> numSample;
+
+    std::vector <double> timescan(numSample);
+
     sleep_until(system_clock::now() + milliseconds(500));
     std::cout << "------------------------" << std::endl;
     std::cout << "Please choose a gesture...." << std::endl;
@@ -203,7 +237,7 @@ std::map<Gesture, std::string> gestureNames = {
     {RING_FINGER_GRASP, "Ring Finger Grasp"}
 };
 //THIS GENERATES A EMG SIGNAL BASED ON USER INPUT OF SAMPLE SIZE, WINDOW SIZE, AND GESTURE SELECTION...
-std::vector<double> emgSignal = generateEMGSignal(numSample, selectedGesture);
+std::vector<double> emgSignal = generateEMGSignal(numSample, selectedGesture, timescan);
     std::cout << std::fixed << std::setprecision(4) << "EMG Signal generated for " <<
     gestureNames[selectedGesture] << " gesture:\n" << std::endl;
     for (const auto& val : emgSignal) {
@@ -258,7 +292,40 @@ std::vector<double> emgSignal = generateEMGSignal(numSample, selectedGesture);
     std::cout << val << " " << std::endl;
     }
     std::cout << std::endl;
-    std::vector<double> extractedFilter = filteredSignal;
+    std::vector<double> extractedFilter = filteredSignal;*/
     std::cout << "Ready to extract features..." << std::endl;
-     return 0;
+    for (int i = 0; i < emgSignal.size(); i++) {
+      sleep_until(system_clock::now() + milliseconds(500));
+      std::cout << emgSignal[i] << " " << std::endl;
+  
+      sleep_until(system_clock::now() + milliseconds(500));
+      std::cout << "\033[F";
+      std::cout << "\033[K";
+      std::cout << emgSignal[i]-timescan[i] << std::endl;
+    }
+    return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//so i can look at the text text
