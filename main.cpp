@@ -123,11 +123,11 @@ int main() {
     std::cout << "\033[38;2;0;250;204m";
     using namespace std::this_thread;
     using namespace std::chrono;
-    for (int x = 0; x < 3; x++){
+    for (int x = 0; x < 1; x++){
       std::cout << "Loading" << std::endl;
     // Move the cursor up one line
       std::cout << "\033[F";
-    // Clear the line I don't know why these do what they do...
+    // Clear the line I know why these do what they do...
       std::cout << "\033[K";
       sleep_until(system_clock::now() + milliseconds(500));
       std::cout << "Loading." << std::endl;
@@ -147,6 +147,12 @@ int main() {
     // Move the cursor up one line
       std::cout << "\033[F";
     // Clear the line
+      std::cout << "\033[K";
+      std::cout << "Loading" << std::endl;
+      sleep_until(system_clock::now() + milliseconds(500));
+    // Move the cursor up one line
+      std::cout << "\033[F";
+    // Clear the line I don't know why these do what they do...
       std::cout << "\033[K";
     }
     sleep_until(system_clock::now() + seconds(1));
@@ -253,7 +259,7 @@ std::vector<double> emgSignal = generateEMGSignal(numSample, selectedGesture, ti
     std::cout << "Loading" << std::endl;
 // Move the cursor up one line
     std::cout << "\033[F";
-// Clear the line I don't know why these do what they do...
+// Clear the line I know why these do what they do...
     std::cout << "\033[K";
     sleep_until(system_clock::now() + milliseconds(500));
     std::cout << "Loading." << std::endl;
