@@ -99,7 +99,7 @@ struct GestureData {
 };
 
 //GENERATES EMG SIGNAL (commented out /*rand(s)*/)
-std::vector<double> generateEMGSignal(int numSample, Gesture gesture, std::vector <double>& timescan) {
+std::vector<double> generateEMGSignal(int numSample, Gesture gesture, std::vector <double>& timescan, double& time) {
     using namespace std::this_thread;
     using namespace std::chrono;
     std::vector<double> emgSignal(numSample);
@@ -110,10 +110,9 @@ std::vector<double> generateEMGSignal(int numSample, Gesture gesture, std::vecto
     std::cin >> cycles;
     sleep_until(system_clock::now() + milliseconds(250));
     std::cout << "Please enter how long it took you to exert this motion in seconds: ";
-    double seconds; 
-    std::cin >> seconds;
+    std::cin >> time;
     for (int x = 0; x < emgSignal.size(); x++){
-      emgSignal[x] = cycles / seconds;
+      emgSignal[x] = cycles / time;
     }
     emgSignal = distortion(emgSignal, 50, 1, timescan);
     return emgSignal;
@@ -191,6 +190,7 @@ int main() {
     std::cin >> numSample;
 
     std::vector <double> timescan(numSample);
+    double time = 0.0;
 
     sleep_until(system_clock::now() + milliseconds(500));
     std::cout << "------------------------" << std::endl;
@@ -243,7 +243,7 @@ std::map<Gesture, std::string> gestureNames = {
     {RING_FINGER_GRASP, "Ring Finger Grasp"}
 };
 //THIS GENERATES A EMG SIGNAL BASED ON USER INPUT OF SAMPLE SIZE, WINDOW SIZE, AND GESTURE SELECTION...
-std::vector<double> emgSignal = generateEMGSignal(numSample, selectedGesture, timescan);
+std::vector<double> emgSignal = generateEMGSignal(numSample, selectedGesture, timescan, time);
     std::cout << std::fixed << std::setprecision(4) << "EMG Signal generated for " <<
     gestureNames[selectedGesture] << " gesture:\n" << std::endl;
     for (const auto& val : emgSignal) {
@@ -295,20 +295,36 @@ std::vector<double> emgSignal = generateEMGSignal(numSample, selectedGesture, ti
     std::endl;
     for (const auto& val : filteredSignal) {
     sleep_until(system_clock::now() + milliseconds(500));
-    std::cout << val << " " << std::endl;
+    std::cout << val << " hz" << std::endl;
     }
     std::cout << std::endl;
     std::vector<double> extractedFilter = filteredSignal;*/
     std::cout << "Ready to extract features..." << std::endl;
     for (int i = 0; i < emgSignal.size(); i++) {
       sleep_until(system_clock::now() + milliseconds(500));
-      std::cout << emgSignal[i] << " " << std::endl;
+      std::cout << emgSignal[i] << " hz" << std::endl;
   
       sleep_until(system_clock::now() + milliseconds(500));
       std::cout << "\033[F";
       std::cout << "\033[K";
-      std::cout << emgSignal[i]-timescan[i] << std::endl;
+      std::cout << emgSignal[i]-timescan[i] << " hz" << std::endl;
     }
+    std::cout << "Cycles to be exicuted..." << std::endl;
+    for (int i = 0; i < emgSignal.size(); i++){
+      sleep_until(system_clock::now() + milliseconds(500));
+      std::cout << emgSignal[i]-timescan[i] << " hz" << std::endl;
+
+      sleep_until(system_clock::now() + milliseconds(500));
+      std::cout << "\033[F";
+      std::cout << "\033[K";
+      double cycle;
+      cycle = (emgSignal[i]-timescan[i]) * time;
+      if (cycle == 1){
+        std::cout << cycle << " Cycle" << std::endl;
+      }
+      else {
+        std::cout << cycle << " Cycles" << std::endl;
+      }
     return 0;
 }
 
