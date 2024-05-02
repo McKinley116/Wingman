@@ -1,8 +1,8 @@
 #include <functional>
 #include <ios>
 #include <iostream>
-#include "mainwindow.h"
-#include <QApplication>
+/*#include "mainwindow.h"
+#include <QApplication>*/
 #include <fstream>
 #include <iomanip> // For alignment
 #include <chrono> // For pauses
@@ -325,6 +325,7 @@ std::vector<double> emgSignal = generateEMGSignal(numSample, selectedGesture, ti
       else {
         std::cout << cycle << " Cycles" << std::endl;
       }
+    }
     return 0;
 }
 
@@ -349,5 +350,3 @@ std::vector<double> emgSignal = generateEMGSignal(numSample, selectedGesture, ti
 
 
 
-
-//so i can look at the text text
