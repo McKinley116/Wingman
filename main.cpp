@@ -1,8 +1,8 @@
 #include <functional>
 #include <ios>
 #include <iostream>
-/*#include "mainwindow.h"
-#include <QApplication>*/
+#include "mainwindow.h"
+#include <QApplication>
 #include <fstream>
 #include <iomanip> // For alignment
 #include <chrono> // For pauses
@@ -13,55 +13,6 @@
 #include <map>
 #include <cstdlib> // For std::rand() and std::srand()
 #include <ctime> // For srand(time(x)
-
-
-
-/*// Notch filter to filter out powerline frequency, filters out 50HZ and 60HZ.
-std::vector<double> notchFilter(const std::vector<double>& signal, double sampleRate, double humFrequency, double bandwidth) {
-// Compute the frequency response of the notch filter
-    std::vector<double> frequencies(signal.size());
-    for (size_t i = 0; i < frequencies.size(); ++i) {
-    frequencies[i] = i * sampleRate / frequencies.size();
-    }
-    std::vector<double> transferFunction(signal.size(), 1.0);
-    for (size_t i = 0; i < frequencies.size(); ++i) {
-    if (std::abs(frequencies[i] - humFrequency) < bandwidth / 2) {
-    transferFunction[i] = 0; // Apply notch filter
-    }
-}
-// Apply the frequency response to the signal
-std::vector<double> filteredSignal(signal.size(), 0.0);
-    for (size_t i = 0; i < signal.size(); ++i) {
-    filteredSignal[i] = signal[i] * transferFunction[i];
-    }
-    return filteredSignal;
-}
-// Function to implement a low-pass filter with 'same' convolution behavior, filter out above 150HZ
-std::vector<double> lowPassFilter(const std::vector<double>& signal, int windowSize) {
-    int halfWindowSize = windowSize / 2;
-    std::vector<double> window(windowSize, 1.0); // Define a window for averaging
-    std::vector<double> filteredSignal(signal.size(), 0.0); // Initialize filtered signal with zeros
-
-// Perform convolution with 'same' behavior
-    for (int i = halfWindowSize; i < signal.size() - halfWindowSize; ++i) {
-// Extract the segment of the signal for convolution
-    double sum = 0.0;
-    for (int j = -halfWindowSize; j <= halfWindowSize; ++j) {
-    sum += signal[i + j] * window[j + halfWindowSize];
-    }
-    filteredSignal[i] = sum / windowSize;
-    }
-    return filteredSignal;
-}
-// Function to implement a high-pass filter to filter out below 20HZ
-std::vector<double> highPassFilter(const std::vector<double>& signal, int windowSize) {
-    std::vector<double> lowPassFiltered = lowPassFilter(signal, windowSize); // Apply low-pass filtering
-    std::vector<double> highPassFiltered(signal.size(), 0.0); // Subtract low-pass filtered signal from original signal
-    for (size_t i = 0; i < signal.size(); ++i) {
-    highPassFiltered[i] = signal[i] - lowPassFiltered[i];
-    }
-    return highPassFiltered;
-}*/
 
 //This is an algorithm I created to scramble the signals. It adds anything between 1-50 hz to the value. IDK if you want to use it we don't need to.
 std::vector <double> distortion(std::vector <double> signals, int max, int min, std::vector <double>& timescan){
@@ -328,14 +279,52 @@ std::vector<double> emgSignal = generateEMGSignal(numSample, selectedGesture, ti
     }
     return 0;
 }
+/*// Notch filter to filter out powerline frequency, filters out 50HZ and 60HZ.
+std::vector<double> notchFilter(const std::vector<double>& signal, double sampleRate, double humFrequency, double bandwidth) {
+// Compute the frequency response of the notch filter
+    std::vector<double> frequencies(signal.size());
+    for (size_t i = 0; i < frequencies.size(); ++i) {
+    frequencies[i] = i * sampleRate / frequencies.size();
+    }
+    std::vector<double> transferFunction(signal.size(), 1.0);
+    for (size_t i = 0; i < frequencies.size(); ++i) {
+    if (std::abs(frequencies[i] - humFrequency) < bandwidth / 2) {
+    transferFunction[i] = 0; // Apply notch filter
+    }
+}
+// Apply the frequency response to the signal
+std::vector<double> filteredSignal(signal.size(), 0.0);
+    for (size_t i = 0; i < signal.size(); ++i) {
+    filteredSignal[i] = signal[i] * transferFunction[i];
+    }
+    return filteredSignal;
+}
+// Function to implement a low-pass filter with 'same' convolution behavior, filter out above 150HZ
+std::vector<double> lowPassFilter(const std::vector<double>& signal, int windowSize) {
+    int halfWindowSize = windowSize / 2;
+    std::vector<double> window(windowSize, 1.0); // Define a window for averaging
+    std::vector<double> filteredSignal(signal.size(), 0.0); // Initialize filtered signal with zeros
 
-
-
-
-
-
-
-
+// Perform convolution with 'same' behavior
+    for (int i = halfWindowSize; i < signal.size() - halfWindowSize; ++i) {
+// Extract the segment of the signal for convolution
+    double sum = 0.0;
+    for (int j = -halfWindowSize; j <= halfWindowSize; ++j) {
+    sum += signal[i + j] * window[j + halfWindowSize];
+    }
+    filteredSignal[i] = sum / windowSize;
+    }
+    return filteredSignal;
+}
+// Function to implement a high-pass filter to filter out below 20HZ
+std::vector<double> highPassFilter(const std::vector<double>& signal, int windowSize) {
+    std::vector<double> lowPassFiltered = lowPassFilter(signal, windowSize); // Apply low-pass filtering
+    std::vector<double> highPassFiltered(signal.size(), 0.0); // Subtract low-pass filtered signal from original signal
+    for (size_t i = 0; i < signal.size(); ++i) {
+    highPassFiltered[i] = signal[i] - lowPassFiltered[i];
+    }
+    return highPassFiltered;
+}*/
 
 
 

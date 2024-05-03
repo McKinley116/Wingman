@@ -2,12 +2,28 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QLabel>
+#include <QPushButton>
+#include <QLineEdit>
+#include <QMessageBox>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QTimer>
+#include <iostream>
+#include <vector>
+#include <map>
 
-QT_BEGIN_NAMESPACE
-namespace Ui {
-class MainWindow;
-}
-QT_END_NAMESPACE
+enum Gesture {
+    FIST,
+    OPEN,
+    TWO_FINGER_PINCH,
+    THREE_FINGER_PINCH,
+    POINTING,
+    HOOK,
+    THUMBS_UP,
+    RING_FINGER_GRASP,
+    NUM_GESTURES
+};
 
 class MainWindow : public QMainWindow
 {
@@ -17,7 +33,19 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void generateEMGSignal();
+
 private:
-    Ui::MainWindow *ui;
+    void displayGestureOptions();
+    void displayLoadingAnimation();
+    std::vector<double> distortion(const std::vector<double>& signals, int max, int min, std::vector<double>& timescan);
+    double calculateAverage(const std::vector<double>& vec);
+
+    QLabel *gestureLabel;
+    QPushButton *generateButton;
+    QLineEdit *sampleSizeEdit;
+    QTimer *timer;
 };
+
 #endif // MAINWINDOW_H
