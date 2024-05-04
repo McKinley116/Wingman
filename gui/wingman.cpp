@@ -23,7 +23,7 @@ void Wingman::openContributeURL()
     QDesktopServices::openUrl(QUrl(url));
 }
 
-void generateEMGSignals() {
+void Wingman::generateEMGSignals() {
     bool ok;
     double cycles = QInputDialog::getDouble(this, "Enter Cycles", "Please enter how many cycles of motion occur:", 0.0, 0.0, 1000.0, 2, &ok);
     if (!ok)
