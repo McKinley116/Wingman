@@ -22,16 +22,16 @@ public:
     ~Wingman();
 
 public slots:
-    void generateEMGSignals(); // generate EMGs
+    /* void generateEMGSignals(); // generate EMGs */
 
 private slots:
     void openContributeURL(); // Slot to open GitHub repository URL
-    void gestureSelection(int gestureIndex); // gesture choice
-    void timeChanged();
+    /* void gestureSelection(int gestureIndex); // gesture choice */
+    void timeChanged(int value);
 
 private:
     Ui::Wingman *ui;
     QSlider *timeslider;
-}
+};
 
 #endif // WINGMAN_H

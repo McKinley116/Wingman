@@ -8,7 +8,5 @@ int main(int argc, char *argv[])
     Wingman w;
     w.show();
 
-
-
     return a.exec();
 }

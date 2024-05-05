@@ -11,13 +11,10 @@ Wingman::Wingman(QWidget *parent) :
     connect(ui->contributeButton, &QPushButton::clicked, this, &Wingman::openContributeURL);
 
     /*connect(ui->testButton, &QPushButton::clicked, this, &Wingman::generateEMGSignals);*/
-
-    connect(ui->timeslider, &TimeSlider::timeChanged, this, &Wingman::sliderValueChanged);
-    timeSlider = timeslider;
+    timeslider = new QSlider(Qt::Horizontal, this);
     timeslider-> setRange(1, 60); // sets time
     timeslider-> setSingleStep(1); // sets steps
-
-    connect(ui->timeSlider, &QSlider::valueChanged, this, &Wingman::timeChanged);
+    connect(ui->timeslider, &QSlider::valueChanged, this, &Wingman::timeChanged);
   
 }
 
@@ -32,12 +29,12 @@ void Wingman::openContributeURL()
     QDesktopServices::openUrl(QUrl(url));
 }
 
-void Wingman::handleTimeChange(int seconds){
+void Wingman::timeChanged(int seconds){
     qDebug() << "Selected time:"<< seconds << "seconds";
     ui->timeLabel->setText(QString("Selected Time: %1 seconds").arg(seconds));
 }
 
-void Wingman::generateEMGSignals(){
-    int selectedSeconds = timeSlider->value();
-    qDebug() << "Generating EMG signals for: " << selectedSignal<< " seconds";    
-}
+/*void Wingman::generateEMGSignals(){
+    int selectedSeconds = timeslider->value();
+    qDebug() << "Generating EMG signals for: " << selectedSeconds<< " seconds";
+}*/
