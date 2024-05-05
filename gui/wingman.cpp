@@ -9,7 +9,16 @@ Wingman::Wingman(QWidget *parent) :
 
     // Connect contributeButton click to openContributeURL slot
     connect(ui->contributeButton, &QPushButton::clicked, this, &Wingman::openContributeURL);
-    connect(ui->testButton, &QPushButton::clicked, this, &Wingman::generateEMGSignals);
+
+    /*connect(ui->testButton, &QPushButton::clicked, this, &Wingman::generateEMGSignals);*/
+
+    connect(ui->timeslider, &TimeSlider::timeChanged, this, &Wingman::sliderValueChanged);
+    timeSlider = timeslider;
+    timeslider-> setRange(1, 60); // sets time
+    timeslider-> setSingleStep(1); // sets steps
+
+    connect(ui->timeSlider, &QSlider::valueChanged, this, &Wingman::timeChanged);
+  
 }
 
 Wingman::~Wingman()
@@ -23,25 +32,12 @@ void Wingman::openContributeURL()
     QDesktopServices::openUrl(QUrl(url));
 }
 
-void Wingman::generateEMGSignals() {
-    bool ok;
-    double cycles = QInputDialog::getDouble(this, "Enter Cycles", "Please enter how many cycles of motion occur:", 0.0, 0.0, 1000.0, 2, &ok);
-    if (!ok)
-        return; // User canceled input
-
-    double duration = QInputDialog::getDouble(this, "Enter Duration", "Please enter how long it took you to exert this motion in seconds:", 0.0, 0.0, 1000.0, 2, &ok);
-    if (!ok)
-        return; // User canceled input
-
-    double time = duration; // Store the duration as the time parameter
-
-    // Create a vector to store the generated EMG signal
-    std::vector<double> timescan(cycles); // Assuming 'cycles' as the size of timescan vector
-
-    // Generate EMG signal
-    std::vector<double> emgSignal = generateEMGSignal(cycles, FIST, timescan, time); // Assuming FIST as the default gesture
-
-    // Process the generated EMG signal (e.g., display it)
-    displayEMGSignal(emgSignal, FIST); // Assuming FIST as the default gesture
+void Wingman::handleTimeChange(int seconds){
+    qDebug() << "Selected time:"<< seconds << "seconds";
+    ui->timeLabel->setText(QString("Selected Time: %1 seconds").arg(seconds));
 }
+
+void Wingman::generateEMGSignals(){
+    int selectedSeconds = timeSlider->value();
+    qDebug() << "Generating EMG signals for: " << selectedSignal<< " seconds";    
 }

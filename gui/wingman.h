@@ -5,6 +5,7 @@
 #include <QDesktopServices>
 #include <QUrl>
 #include <QInputDialog>
+#include <QSlider>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -25,14 +26,12 @@ public slots:
 
 private slots:
     void openContributeURL(); // Slot to open GitHub repository URL
-
     void gestureSelection(int gestureIndex); // gesture choice
-    void frequencySelection(); // freq. Hz
-    void timeSelection(); // Time
+    void timeChanged();
 
 private:
     Ui::Wingman *ui;
-    QVector<bool> gestureEnabled; // Tracks state for each gesture
-};
+    QSlider *timeslider;
+}
 
 #endif // WINGMAN_H

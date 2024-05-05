@@ -1,8 +1,6 @@
 #include <functional>
 #include <ios>
 #include <iostream>
-#include "mainwindow.h"
-#include <QApplication>
 #include <fstream>
 #include <iomanip> // For alignment
 #include <chrono> // For pauses
