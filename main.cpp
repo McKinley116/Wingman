@@ -269,11 +269,20 @@ std::vector<double> emgSignal = generateEMGSignal(numSample, selectedGesture, ti
       double cycle;
       cycle = (emgSignal[i]-timescan[i]) * time;
       if (cycle == 1){
-        std::cout << cycle << " Cycle" << std::endl;
+        if (time == 1){
+          std::cout << cycle << " Cycle in " << time << " Second"<< std::endl; 
+        }
+        else {
+          std::cout << cycle << " Cycle in " << time << " Seconds"<< std::endl;
+        }
       }
       else {
-        std::cout << cycle << " Cycles" << std::endl;
-      }
+        if (time == 1){
+          std::cout << cycle << " Cycles in " << time << " Second"<< std::endl; 
+        }
+        else {
+          std::cout << cycle << " Cycles in " << time << " Seconds"<< std::endl;
+        }
     }
     return 0;
 }
